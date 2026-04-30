@@ -20,7 +20,6 @@ export class ModelsListComponent implements OnInit {
   selectedPricing    = '';   // '' | 'free' | 'paid'
   selectedContext    = '';   // '' | 'xs' | 'sm' | 'md' | 'lg'
   selectedProvider     = '';
-  providerDropdownOpen = false;
   selectedCapabilities: Set<string> = new Set(); // multi-select: 'tools' | 'vision' | 'web_search' | 'discount'
   multiProviderOnly    = false;    // show only models with > 1 provider
   loadingProviderCounts = false;   // true while fetching endpoint counts

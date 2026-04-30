@@ -127,27 +127,10 @@
         <span class="filter-label">
           <cds-icon shape="organization" size="sm"></cds-icon>Provider
         </span>
-        <div class="provider-dropdown" [class.open]="providerDropdownOpen" (click)="$event.stopPropagation()">
-          <div class="dd-backdrop" *ngIf="providerDropdownOpen" (click)="providerDropdownOpen = false"></div>
-          <button class="provider-dd-trigger" (click)="providerDropdownOpen = !providerDropdownOpen" type="button">
-            <app-provider-logo *ngIf="selectedProvider" [provider]="selectedProvider" [size]="16"></app-provider-logo>
-            <span>{{ selectedProvider || 'All providers' }}</span>
-            <cds-icon shape="angle" direction="down" size="sm" class="dd-caret"></cds-icon>
-          </button>
-          <div class="provider-dd-menu" *ngIf="providerDropdownOpen">
-            <button class="provider-dd-item" [class.selected]="!selectedProvider"
-                    (click)="selectedProvider = ''; applyFilters(); providerDropdownOpen = false">
-              <span class="prov-dd-all-icon"><cds-icon shape="organization" size="sm"></cds-icon></span>
-              <span>All providers</span>
-            </button>
-            <button class="provider-dd-item" *ngFor="let p of providerOptions"
-                    [class.selected]="selectedProvider === p"
-                    (click)="selectedProvider = p; applyFilters(); providerDropdownOpen = false">
-              <app-provider-logo [provider]="p" [size]="18"></app-provider-logo>
-              <span>{{ p }}</span>
-            </button>
-          </div>
-        </div>
+        <select class="filter-native-select" [(ngModel)]="selectedProvider" (change)="applyFilters()">
+          <option value="">All providers</option>
+          <option *ngFor="let p of providerOptions" [value]="p">{{ p }}</option>
+        </select>
 
         <!-- Multi-provider toggle -->
         <button class="filter-chip multi-provider-chip"
