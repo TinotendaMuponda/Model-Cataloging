@@ -36,42 +36,69 @@
     </span>
   </div>
 
-  <!-- No results -->
-  <div *ngIf="models.length === 0" class="no-results">
-    <cds-icon shape="info-standard" size="xl" style="color:#888; display:block; margin-bottom:0.5rem;"></cds-icon>
-    <p>No models match your search.</p>
-  </div>
+  <!-- Two-column layout: side pane + main grid -->
+  <div class="page-layout">
 
-  <!-- Model cards grid -->
-  <div class="cards-grid" *ngIf="models.length > 0">
-    <div class="card model-card" *ngFor="let m of models" (click)="openDetail(m)" role="button" tabindex="0" (keyup.enter)="openDetail(m)">
-      <div class="card-header">
-        <span class="model-name">{{ m.name || m.id }}</span>
-        <span class="label label-purple modality-badge" *ngIf="m.architecture?.modality">
-          <cds-icon shape="tag" size="sm" style="margin-right:2px; vertical-align:middle;"></cds-icon>
-          {{ m.architecture?.modality }}
-        </span>
+    <!-- Latest Additions side pane -->
+    <aside class="side-pane" *ngIf="recentlyAdded.length > 0">
+      <div class="side-pane-header">
+        <cds-icon shape="bolt" size="md" style="color:#1a6e0a; vertical-align:middle; margin-right:0.4rem;"></cds-icon>
+        <span>Latest Additions</span>
+        <span class="label label-success side-pane-count">{{ recentlyAdded.length }}</span>
       </div>
-      <div class="card-block">
-        <p class="model-id clr-form-control-label">{{ m.id }}</p>
-        <p class="model-description" *ngIf="m.description">{{ m.description | slice:0:200 }}{{ (m.description?.length ?? 0) > 200 ? '…' : '' }}</p>
+      <ul class="recent-list">
+        <li class="recent-item" *ngFor="let m of recentlyAdded" (click)="openDetail(m)" role="button" tabindex="0" (keyup.enter)="openDetail(m)">
+          <div class="recent-name">{{ m.name || m.id }}</div>
+          <div class="recent-meta">
+            <span class="recent-id">{{ m.id }}</span>
+            <span class="recent-date">{{ formatDate(m.created) }}</span>
+          </div>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main model cards grid -->
+    <div class="main-content">
+      <!-- No results -->
+      <div *ngIf="models.length === 0" class="no-results">
+        <cds-icon shape="info-standard" size="xl" style="color:#888; display:block; margin-bottom:0.5rem;"></cds-icon>
+        <p>No models match your search.</p>
       </div>
-      <div class="card-footer">
-        <div class="meta-row">
-          <span class="meta-item">
-            <cds-icon shape="layers" size="sm" style="vertical-align:middle; margin-right:3px; color:#0073b9;"></cds-icon>
-            <strong>Context:</strong> {{ formatContext(m.context_length) }}
-          </span>
-          <span class="meta-item">
-            <cds-icon shape="dollar" size="sm" style="vertical-align:middle; margin-right:3px; color:#1a6e0a;"></cds-icon>
-            <strong>Input:</strong> {{ formatPrice(m.pricing?.prompt) }}
-          </span>
-          <span class="meta-item">
-            <cds-icon shape="dollar" size="sm" style="vertical-align:middle; margin-right:3px; color:#1a6e0a;"></cds-icon>
-            <strong>Output:</strong> {{ formatPrice(m.pricing?.completion) }}
-          </span>
+
+      <div class="cards-grid" *ngIf="models.length > 0">
+        <div class="card model-card" *ngFor="let m of models" (click)="openDetail(m)" role="button" tabindex="0" (keyup.enter)="openDetail(m)">
+          <div class="card-header">
+            <span class="model-name">{{ m.name || m.id }}</span>
+            <div class="badge-group">
+              <span class="label label-purple modality-badge" *ngIf="m.architecture?.modality">
+                <cds-icon shape="tag" size="sm" style="margin-right:2px; vertical-align:middle;"></cds-icon>
+                {{ m.architecture?.modality }}
+              </span>
+            </div>
+          </div>
+          <div class="card-block">
+            <p class="model-id clr-form-control-label">{{ m.id }}</p>
+            <p class="model-description" *ngIf="m.description">{{ m.description | slice:0:200 }}{{ (m.description?.length ?? 0) > 200 ? '…' : '' }}</p>
+          </div>
+          <div class="card-footer">
+            <div class="meta-row">
+              <span class="meta-item">
+                <cds-icon shape="layers" size="sm" style="vertical-align:middle; margin-right:3px; color:#0073b9;"></cds-icon>
+                <strong>Context:</strong> {{ formatContext(m.context_length) }}
+              </span>
+              <span class="meta-item">
+                <cds-icon shape="dollar" size="sm" style="vertical-align:middle; margin-right:3px; color:#1a6e0a;"></cds-icon>
+                <strong>Input:</strong> {{ formatPrice(m.pricing?.prompt) }}
+              </span>
+              <span class="meta-item">
+                <cds-icon shape="dollar" size="sm" style="vertical-align:middle; margin-right:3px; color:#1a6e0a;"></cds-icon>
+                <strong>Output:</strong> {{ formatPrice(m.pricing?.completion) }}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 </div>

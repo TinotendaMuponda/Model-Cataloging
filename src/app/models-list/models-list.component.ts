@@ -10,6 +10,7 @@ import { ModelsService, ModelInfo } from '../models.service';
 export class ModelsListComponent implements OnInit {
   allModels: ModelInfo[] = [];
   models: ModelInfo[] = [];
+  recentlyAdded: ModelInfo[] = [];
   loading = true;
   error = false;
   searchQuery = '';
@@ -21,6 +22,9 @@ export class ModelsListComponent implements OnInit {
       next: list => {
         this.allModels = list;
         this.models = list;
+        this.recentlyAdded = list
+          .filter(m => this.isRecentlyAdded(m.created))
+          .sort((a, b) => (b.created ?? 0) - (a.created ?? 0));
         this.loading = false;
       },
       error: () => {
@@ -55,5 +59,16 @@ export class ModelsListComponent implements OnInit {
 
   openDetail(model: ModelInfo): void {
     this.router.navigate(['/', encodeURIComponent(model.id)]);
+  }
+
+  isRecentlyAdded(createdAt?: number): boolean {
+    if (!createdAt) return false;
+    const fourteenDaysAgo = Date.now() / 1000 - 14 * 24 * 60 * 60;
+    return createdAt > fourteenDaysAgo;
+  }
+
+  formatDate(ts?: number): string {
+    if (!ts) return '';
+    return new Date(ts * 1000).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
   }
 }

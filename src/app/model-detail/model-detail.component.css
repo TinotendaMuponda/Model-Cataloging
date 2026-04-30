@@ -1,8 +1,8 @@
 .loading-overlay {
   display: flex;
   flex-direction: column;
-  align-items: left;
-  justify-content: left;
+  align-items: flex-start;
+  justify-content: flex-start;
   padding: 3rem;
   color: #666;
 }
@@ -47,7 +47,7 @@
 
 .hero-title-row {
   display: flex;
-  align-items: left;
+  align-items: flex-start;
   gap: 0.75rem;
   flex-wrap: wrap;
 }
