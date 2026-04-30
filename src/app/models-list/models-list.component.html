@@ -19,104 +19,97 @@
 <!-- Content -->
 <div *ngIf="!loading && !error">
 
-  <!-- Search + filter toolbar -->
-  <div class="search-bar">
-    <div class="search-input-wrapper">
-      <cds-icon shape="search" class="search-icon"></cds-icon>
-      <input
-        type="text"
-        [(ngModel)]="searchQuery"
-        (input)="onSearch(searchQuery)"
-        placeholder="Search by name, ID or description..."
-        class="clr-input search-input"
-      />
-    </div>
+  <!-- ── Unified sticky toolbar ─────────────────────── -->
+  <div class="toolbar">
 
-    <!-- Sort -->
-    <div class="filter-select-wrap">
-      <cds-icon shape="sort-by" size="sm" class="filter-select-icon"></cds-icon>
-      <select class="clr-select filter-select" [(ngModel)]="sortBy" (change)="applyFilters()">
-        <option *ngFor="let o of sortOptions" [value]="o.value">{{ o.label }}</option>
-      </select>
-    </div>
-
-    <!-- Active count + clear -->
-    <span class="label label-info model-count">{{ models.length }} models</span>
-    <button *ngIf="activeFilterCount > 0"
-            class="btn btn-sm btn-link clear-filters-btn"
-            (click)="clearFilters()">
-      <cds-icon shape="times-circle" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
-      Clear filters
-      <span class="badge badge-danger" style="margin-left:4px;">{{ activeFilterCount }}</span>
-    </button>
-  </div>
-
-  <!-- Filter panel -->
-  <div class="filter-panel">
-
-    <!-- Modality -->
-    <div class="filter-row">
-      <span class="filter-label">
-        <cds-icon shape="tag" size="sm" style="vertical-align:middle; margin-right:3px;"></cds-icon>
-        Modality
-      </span>
-      <div class="chip-group">
-        <button class="filter-chip" [class.active]="selectedModality === ''"
-                (click)="selectedModality = ''; applyFilters()">All</button>
-        <button class="filter-chip" *ngFor="let mod of modalityOptions"
-                [class.active]="selectedModality === mod"
-                (click)="selectedModality = mod; applyFilters()">{{ mod }}</button>
+    <!-- Row 1: search + count + clear -->
+    <div class="toolbar-top">
+      <div class="search-input-wrapper">
+        <cds-icon shape="search" class="search-icon"></cds-icon>
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          (input)="onSearch(searchQuery)"
+          placeholder="Search by name, ID or description…"
+          class="clr-input search-input"
+        />
       </div>
+
+      <span class="label label-info model-count">{{ models.length }} model{{ models.length !== 1 ? 's' : '' }}</span>
+
+      <button *ngIf="activeFilterCount > 0"
+              class="btn btn-sm btn-link clear-btn"
+              (click)="clearFilters()">
+        <cds-icon shape="times-circle" size="sm"></cds-icon>
+        Reset&nbsp;<span class="badge badge-danger">{{ activeFilterCount }}</span>
+      </button>
     </div>
 
-    <!-- Pricing -->
-    <div class="filter-row">
-      <span class="filter-label">
-        <cds-icon shape="dollar" size="sm" style="vertical-align:middle; margin-right:3px;"></cds-icon>
-        Pricing
-      </span>
-      <div class="chip-group">
-        <button class="filter-chip" [class.active]="selectedPricing === ''"
-                (click)="selectedPricing = ''; applyFilters()">All</button>
-        <button class="filter-chip" [class.active]="selectedPricing === 'free'"
-                (click)="selectedPricing = 'free'; applyFilters()">
-          <cds-icon shape="check-circle" size="xs" style="vertical-align:middle; margin-right:2px;"></cds-icon>
-          Free
-        </button>
-        <button class="filter-chip" [class.active]="selectedPricing === 'paid'"
-                (click)="selectedPricing = 'paid'; applyFilters()">Paid</button>
+    <!-- Row 2: filter chips + sort -->
+    <div class="toolbar-filters">
+
+      <!-- Modality -->
+      <div class="filter-row">
+        <span class="filter-label">
+          <cds-icon shape="tag" size="xs"></cds-icon>Modality
+        </span>
+        <div class="chip-group">
+          <button class="filter-chip" [class.active]="selectedModality === ''"
+                  (click)="selectedModality = ''; applyFilters()">All</button>
+          <button class="filter-chip" *ngFor="let mod of modalityOptions"
+                  [class.active]="selectedModality === mod"
+                  (click)="selectedModality = mod; applyFilters()">{{ mod }}</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Context window -->
-    <div class="filter-row">
-      <span class="filter-label">
-        <cds-icon shape="layers" size="sm" style="vertical-align:middle; margin-right:3px;"></cds-icon>
-        Context
-      </span>
-      <div class="chip-group">
-        <button class="filter-chip"
-                *ngFor="let b of contextBuckets"
-                [class.active]="selectedContext === b.value"
-                (click)="selectedContext = b.value; applyFilters()">{{ b.label }}</button>
+      <!-- Pricing -->
+      <div class="filter-row">
+        <span class="filter-label">
+          <cds-icon shape="dollar" size="xs"></cds-icon>Pricing
+        </span>
+        <div class="chip-group">
+          <button class="filter-chip" [class.active]="selectedPricing === ''"
+                  (click)="selectedPricing = ''; applyFilters()">All</button>
+          <button class="filter-chip" [class.active]="selectedPricing === 'free'"
+                  (click)="selectedPricing = 'free'; applyFilters()">Free</button>
+          <button class="filter-chip" [class.active]="selectedPricing === 'paid'"
+                  (click)="selectedPricing = 'paid'; applyFilters()">Paid</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Provider -->
-    <div class="filter-row">
-      <span class="filter-label">
-        <cds-icon shape="organization" size="sm" style="vertical-align:middle; margin-right:3px;"></cds-icon>
-        Provider
-      </span>
-      <div class="filter-select-wrap">
-        <select class="clr-select filter-select" [(ngModel)]="selectedProvider" (change)="applyFilters()">
+      <!-- Context -->
+      <div class="filter-row">
+        <span class="filter-label">
+          <cds-icon shape="layers" size="xs"></cds-icon>Context
+        </span>
+        <div class="chip-group">
+          <button class="filter-chip"
+                  *ngFor="let b of contextBuckets"
+                  [class.active]="selectedContext === b.value"
+                  (click)="selectedContext = b.value; applyFilters()">{{ b.label }}</button>
+        </div>
+      </div>
+
+      <!-- Provider + Sort on the same row -->
+      <div class="filter-row">
+        <span class="filter-label">
+          <cds-icon shape="organization" size="xs"></cds-icon>Provider
+        </span>
+        <select class="filter-native-select" [(ngModel)]="selectedProvider" (change)="applyFilters()">
           <option value="">All providers</option>
           <option *ngFor="let p of providerOptions" [value]="p">{{ p }}</option>
         </select>
-      </div>
-    </div>
 
-  </div><!-- /filter-panel -->
+        <span class="filter-label filter-label-sort">
+          <cds-icon shape="sort-by" size="xs"></cds-icon>Sort
+        </span>
+        <select class="filter-native-select" [(ngModel)]="sortBy" (change)="applyFilters()">
+          <option *ngFor="let o of sortOptions" [value]="o.value">{{ o.label }}</option>
+        </select>
+      </div>
+
+    </div><!-- /toolbar-filters -->
+  </div><!-- /toolbar -->
 
   <!-- Two-column layout: side pane + main grid -->
   <div class="page-layout">
