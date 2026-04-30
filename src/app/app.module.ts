@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { ModelsListComponent } from './models-list/models-list.component';
 import { ModelDetailComponent } from './model-detail/model-detail.component';
 import { AppRoutingModule } from './app-routing.module';
+import { TipDirective } from './tip.directive';
 
 @NgModule({
-  declarations: [AppComponent, ModelsListComponent, ModelDetailComponent],
+  declarations: [AppComponent, ModelsListComponent, ModelDetailComponent, TipDirective],
   imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutingModule],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

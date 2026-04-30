@@ -210,19 +210,19 @@
             <div class="cap-badges">
               <span class="cap-badge cap-tools" *ngIf="hasTools(m)">
                 <cds-icon shape="cog" size="xs"></cds-icon>Tool Use
-                <span class="info-tip" data-tip="Supports function calling and structured tool use — essential for agentic workflows and API integrations.">ⓘ</span>
+                <span class="info-tip" [tip]="'Supports function calling and structured tool use — essential for agentic workflows and API integrations.'">ⓘ</span>
               </span>
               <span class="cap-badge cap-vision" *ngIf="hasVision(m)">
                 <cds-icon shape="image" size="xs"></cds-icon>Vision
-                <span class="info-tip" data-tip="Accepts image inputs alongside text — required for document analysis, visual QA, or multimodal pipelines.">ⓘ</span>
+                <span class="info-tip" [tip]="'Accepts image inputs alongside text — required for document analysis, visual QA, or multimodal pipelines.'">ⓘ</span>
               </span>
               <span class="cap-badge cap-web" *ngIf="hasWebSearch(m)">
                 <cds-icon shape="world" size="xs"></cds-icon>Web Search
-                <span class="info-tip" data-tip="Can perform live web searches to ground responses in current information — reduces hallucinations on current-events queries.">ⓘ</span>
+                <span class="info-tip" [tip]="'Can perform live web searches to ground responses in current information — reduces hallucinations on current-events queries.'">ⓘ</span>
               </span>
               <span class="cap-badge cap-discount" *ngIf="hasDiscount(m)">
                 <cds-icon shape="tag" size="xs"></cds-icon>{{ getDiscountPct(m) }}
-                <span class="info-tip" data-tip="Temporary promotional discount on listed rates. Verify before finalising procurement budgets.">ⓘ</span>
+                <span class="info-tip" [tip]="'Temporary promotional discount on listed rates. Verify before finalising procurement budgets.'">ⓘ</span>
               </span>
             </div>
           </div>

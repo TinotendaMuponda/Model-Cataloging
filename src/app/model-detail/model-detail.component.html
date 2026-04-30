@@ -46,19 +46,19 @@
         <span class="summary-chip" *ngIf="cheapestProvider">
           <cds-icon shape="dollar" size="xs"></cds-icon>
           Cheapest: <strong>{{ cheapestProvider.provider_name }}</strong>
-          <span class="info-tip" data-tip="Provider with the lowest input token price. Choose for cost-sensitive or high-volume deployments.">ⓘ</span>
+          <span class="info-tip" [tip]="'Provider with the lowest input token price. Choose for cost-sensitive or high-volume deployments.'">ⓘ</span>
         </span>
         <span class="summary-chip" *ngIf="bestUptimeProvider">
           <cds-icon shape="check-circle" size="xs"></cds-icon>
           Best uptime: <strong>{{ bestUptimeProvider.provider_name }}</strong>
           ({{ bestUptimeProvider.uptime_last_1d | number:'1.1-1' }}%)
-          <span class="info-tip" data-tip="Provider with the highest 24-hour availability. Prioritise for production or mission-critical workloads requiring ≥99% SLA.">ⓘ</span>
+          <span class="info-tip" [tip]="'Provider with the highest 24-hour availability. Prioritise for production or mission-critical workloads requiring ≥99% SLA.'">ⓘ</span>
         </span>
         <span class="summary-chip" *ngIf="fastestProvider">
           <cds-icon shape="bolt" size="xs"></cds-icon>
           Fastest: <strong>{{ fastestProvider.provider_name }}</strong>
           ({{ formatLatency(fastestProvider.latency_last_30m) }})
-          <span class="info-tip" data-tip="Provider with the lowest time-to-first-token (TTFT). Choose for real-time chat, voice, or interactive applications.">ⓘ</span>
+          <span class="info-tip" [tip]="'Provider with the lowest time-to-first-token (TTFT). Choose for real-time chat, voice, or interactive applications.'">ⓘ</span>
         </span>
       </div>
     </div>
@@ -85,7 +85,7 @@
               <td class="info-label">
                 <cds-icon shape="layers" size="sm" style="margin-right:3px; vertical-align:middle; color:#555;"></cds-icon>
                 Context Length
-                <span class="info-tip" data-tip="Total tokens the model can process per request (prompt + output). Larger context supports longer documents and multi-turn conversations.">ⓘ</span>
+                <span class="info-tip" [tip]="'Total tokens the model can process per request (prompt + output). Larger context supports longer documents and multi-turn conversations.'">ⓘ</span>
               </td>
               <td>{{ formatContext(model.context_length) }}</td>
             </tr>
@@ -124,35 +124,35 @@
             <tr>
               <td class="info-label">
                 Input (prompt)
-                <span class="info-tip" data-tip="Price per 1M input tokens (USD). The main cost driver — multiply by your expected monthly token volume to estimate spend.">ⓘ</span>
+                <span class="info-tip" [tip]="'Price per 1M input tokens (USD). The main cost driver — multiply by your expected monthly token volume to estimate spend.'">ⓘ</span>
               </td>
               <td class="price-value">{{ formatPrice(model.pricing?.prompt) }}</td>
             </tr>
             <tr>
               <td class="info-label">
                 Output (completion)
-                <span class="info-tip" data-tip="Price per 1M output tokens (USD). Typically 3–5× input price. Dominant cost for generative/creative workloads.">ⓘ</span>
+                <span class="info-tip" [tip]="'Price per 1M output tokens (USD). Typically 3–5× input price. Dominant cost for generative/creative workloads.'">ⓘ</span>
               </td>
               <td class="price-value">{{ formatPrice(model.pricing?.completion) }}</td>
             </tr>
             <tr *ngIf="model.pricing?.image">
               <td class="info-label">
                 Image input
-                <span class="info-tip" data-tip="Additional cost per image passed as input. Relevant for vision/multimodal use cases.">ⓘ</span>
+                <span class="info-tip" [tip]="'Additional cost per image passed as input. Relevant for vision/multimodal use cases.'">ⓘ</span>
               </td>
               <td class="price-value">{{ formatPrice(model.pricing?.image) }}</td>
             </tr>
             <tr *ngIf="model.pricing?.web_search">
               <td class="info-label">
                 Web search
-                <span class="info-tip" data-tip="Per-query charge when the model performs live web searches. Factor into RAG or grounded-response workflows.">ⓘ</span>
+                <span class="info-tip" [tip]="'Per-query charge when the model performs live web searches. Factor into RAG or grounded-response workflows.'">ⓘ</span>
               </td>
               <td class="price-value">{{ formatPrice(model.pricing?.web_search) }}</td>
             </tr>
             <tr *ngIf="model.pricing?.discount && model.pricing!.discount! < 1">
               <td class="info-label">
                 Discount
-                <span class="info-tip" data-tip="Temporary promotional price reduction on listed rates. Verify before finalising procurement budgets.">ⓘ</span>
+                <span class="info-tip" [tip]="'Temporary promotional price reduction on listed rates. Verify before finalising procurement budgets.'">ⓘ</span>
               </td>
               <td>
                 <span class="discount-badge">
@@ -193,16 +193,16 @@
         <thead>
           <tr>
             <th>Provider</th>
-            <th>Context <span class="info-tip" data-tip="Max tokens allowed per request (prompt + output). Larger context = more data per call but higher cost.">ⓘ</span></th>
-            <th>Max Out <span class="info-tip" data-tip="Maximum tokens this provider will generate per response. Affects long-form output tasks.">ⓘ</span></th>
-            <th>Input / M <span class="info-tip" data-tip="Price per 1 million input tokens (USD). Primary cost driver for read-heavy workloads.">ⓘ</span></th>
-            <th>Output / M <span class="info-tip" data-tip="Price per 1 million output tokens (USD). Typically 3–5× higher than input price.">ⓘ</span></th>
-            <th>Uptime 30m <span class="info-tip" data-tip="Provider availability over the last 30 minutes. Reflects real-time health.">ⓘ</span></th>
-            <th>Uptime 1d <span class="info-tip" data-tip="Provider availability over the past 24 hours. Key SLA indicator — ≥99% is production-grade.">ⓘ</span></th>
-            <th>Latency <span class="info-tip" data-tip="Avg time-to-first-token (TTFT) in ms, last 30 min. <500ms is excellent for interactive/chat apps.">ⓘ</span></th>
-            <th>Throughput <span class="info-tip" data-tip="Avg tokens generated per second, last 30 min. Higher = faster streaming. Critical for batch workloads.">ⓘ</span></th>
-            <th>Caching <span class="info-tip" data-tip="Implicit prompt caching: reuses computed prefix tokens to reduce cost and latency on repeated contexts.">ⓘ</span></th>
-            <th>Quantization <span class="info-tip" data-tip="Weight precision: fp16 = full quality; int8/int4 = compressed (faster & cheaper, slight quality tradeoff).">ⓘ</span></th>
+            <th>Context <span class="info-tip" [tip]="'Max tokens allowed per request (prompt + output). Larger context = more data per call but higher cost.'">ⓘ</span></th>
+            <th>Max Out <span class="info-tip" [tip]="'Maximum tokens this provider will generate per response. Affects long-form output tasks.'">ⓘ</span></th>
+            <th>Input / M <span class="info-tip" [tip]="'Price per 1 million input tokens (USD). Primary cost driver for read-heavy workloads.'">ⓘ</span></th>
+            <th>Output / M <span class="info-tip" [tip]="'Price per 1 million output tokens (USD). Typically 3–5× higher than input price.'">ⓘ</span></th>
+            <th>Uptime 30m <span class="info-tip" [tip]="'Provider availability over the last 30 minutes. Reflects real-time health.'">ⓘ</span></th>
+            <th>Uptime 1d <span class="info-tip" [tip]="'Provider availability over the past 24 hours. Key SLA indicator — ≥99% is production-grade.'">ⓘ</span></th>
+            <th>Latency <span class="info-tip" [tip]="'Avg time-to-first-token (TTFT) in ms, last 30 min. <500ms is excellent for interactive/chat apps.'">ⓘ</span></th>
+            <th>Throughput <span class="info-tip" [tip]="'Avg tokens generated per second, last 30 min. Higher = faster streaming. Critical for batch workloads.'">ⓘ</span></th>
+            <th>Caching <span class="info-tip" [tip]="'Implicit prompt caching: reuses computed prefix tokens to reduce cost and latency on repeated contexts.'">ⓘ</span></th>
+            <th>Quantization <span class="info-tip" [tip]="'Weight precision: fp16 = full quality; int8/int4 = compressed (faster & cheaper, slight quality tradeoff).'">ⓘ</span></th>
             <th>Status</th>
           </tr>
         </thead>
