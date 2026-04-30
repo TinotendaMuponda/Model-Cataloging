@@ -1,0 +1,159 @@
+.loading-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  padding: 3rem;
+  color: #666;
+}
+
+.not-found {
+  text-align: center;
+  padding: 3rem;
+  color: #888;
+}
+
+.detail-container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.back-btn {
+  margin-bottom: 1rem;
+  padding: 0;
+  font-size: 0.9rem;
+  color: #0073b9;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+}
+
+/* Hero */
+.hero-card {
+  margin-bottom: 1.25rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.hero-header {
+  background: linear-gradient(135deg, #003d5b 0%, #006494 100%);
+  color: white;
+  padding: 1.25rem 1.5rem;
+}
+
+.hero-title-row {
+  display: flex;
+  align-items: left;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.model-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.model-id-text {
+  margin: 0.3rem 0 0;
+  font-size: 0.82rem;
+  opacity: 0.75;
+  font-family: monospace;
+}
+
+.created-text {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+  opacity: 0.65;
+}
+
+.description-block p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Info grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.info-card {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.info-card .card-header {
+  background: #f5f8fa;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #1a2332;
+}
+
+.info-card .card-block {
+  padding: 0.75rem 1rem;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Table */
+.table.table-compact {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.table.table-compact td {
+  padding: 0.35rem 0.5rem;
+  vertical-align: middle;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.table.table-compact tr:last-child td {
+  border-bottom: none;
+}
+
+.info-label {
+  color: #666;
+  font-weight: 500;
+  white-space: nowrap;
+  width: 40%;
+}
+
+.price-value {
+  font-weight: 600;
+  color: #1a6e0a;
+}
+
+/* Chips */
+.modality-chip,
+.param-chip {
+  margin: 2px 4px 2px 0;
+  font-size: 0.75rem;
+  display: inline-block;
+}
+
+.params-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+@media (max-width: 640px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}

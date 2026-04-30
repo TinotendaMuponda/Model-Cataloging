@@ -1,0 +1,108 @@
+<div *ngIf="loading" class="loading-overlay">
+  <span class="spinner spinner-lg"></span>
+  <p>Loading model details...</p>
+</div>
+
+<div *ngIf="!loading && notFound" class="not-found">
+  <h2>Model not found</h2>
+  <p>The model you're looking for doesn't exist or has been removed.</p>
+  <button class="btn btn-primary" (click)="goBack()">← Back to Models</button>
+</div>
+
+<div *ngIf="!loading && model" class="detail-container">
+
+  <!-- Back button -->
+  <button class="btn btn-link back-btn" (click)="goBack()">← Back to Models</button>
+
+  <!-- Hero card -->
+  <div class="card hero-card">
+    <div class="card-header hero-header">
+      <div class="hero-title-row">
+        <h1 class="model-title">{{ model.name || model.id }}</h1>
+        <span class="label label-purple" *ngIf="model.architecture?.modality">
+          {{ model.architecture?.modality }}
+        </span>
+      </div>
+      <p class="model-id-text">{{ model.id }}</p>
+      <p class="created-text" *ngIf="model.created">Released: {{ formatDate(model.created) }}</p>
+    </div>
+
+    <div class="card-block description-block" *ngIf="model.description">
+      <p>{{ model.description }}</p>
+    </div>
+  </div>
+
+  <!-- Info grid -->
+  <div class="info-grid">
+
+    <!-- Context & Architecture -->
+    <div class="card info-card">
+      <div class="card-header">Architecture</div>
+      <div class="card-block">
+        <table class="table table-compact">
+          <tbody>
+            <tr>
+              <td class="info-label">Context Length</td>
+              <td>{{ formatContext(model.context_length) }}</td>
+            </tr>
+            <tr *ngIf="model.architecture?.tokenizer">
+              <td class="info-label">Tokenizer</td>
+              <td>{{ model.architecture?.tokenizer }}</td>
+            </tr>
+            <tr *ngIf="model.architecture?.input_modalities?.length">
+              <td class="info-label">Input Modalities</td>
+              <td>
+                <span class="label label-info modality-chip"
+                  *ngFor="let m of model.architecture?.input_modalities">{{ m }}</span>
+              </td>
+            </tr>
+            <tr *ngIf="model.architecture?.output_modalities?.length">
+              <td class="info-label">Output Modalities</td>
+              <td>
+                <span class="label label-success modality-chip"
+                  *ngFor="let m of model.architecture?.output_modalities">{{ m }}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="card info-card">
+      <div class="card-header">Pricing</div>
+      <div class="card-block">
+        <table class="table table-compact">
+          <tbody>
+            <tr>
+              <td class="info-label">Input (prompt)</td>
+              <td class="price-value">{{ formatPrice(model.pricing?.prompt) }}</td>
+            </tr>
+            <tr>
+              <td class="info-label">Output (completion)</td>
+              <td class="price-value">{{ formatPrice(model.pricing?.completion) }}</td>
+            </tr>
+            <tr *ngIf="model.pricing?.image">
+              <td class="info-label">Image</td>
+              <td class="price-value">{{ formatPrice(model.pricing?.image) }}</td>
+            </tr>
+            <tr *ngIf="model.pricing?.web_search">
+              <td class="info-label">Web Search</td>
+              <td class="price-value">{{ formatPrice(model.pricing?.web_search) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Supported Parameters -->
+    <div class="card info-card full-width" *ngIf="model.supported_parameters?.length">
+      <div class="card-header">Supported Parameters</div>
+      <div class="card-block params-block">
+        <span class="label label-light param-chip"
+          *ngFor="let p of model.supported_parameters">{{ p }}</span>
+      </div>
+    </div>
+
+  </div>
+</div>
