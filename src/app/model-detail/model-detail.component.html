@@ -39,7 +39,7 @@
     </div>
 
     <div class="card-block description-block" *ngIf="model.description">
-      <cds-icon shape="info-circle" style="float:left; margin:1rem 0.6rem 0 1.25rem; color:#0073b9;" size="md"></cds-icon>
+      <cds-icon shape="info-circle" size="md"></cds-icon>
       <p>{{ model.description }}</p>
     </div>
   </div>
@@ -137,8 +137,9 @@
       Available Providers
       <span class="badge badge-blue">{{ endpoints.length }}</span>
     </div>
-    <div class="card-block" style="padding: 0; overflow-x: auto;">
-      <table class="table table-compact endpoints-table">
+    <div class="card-block" style="padding: 0;">
+      <div class="table-scroll">
+        <table class="table table-compact endpoints-table">
         <thead>
           <tr>
             <th>Provider</th>
@@ -200,7 +201,8 @@
             </td>
           </tr>
         </tbody>
-      </table>
+        </table>
+      </div>
     </div>
   </div>
 

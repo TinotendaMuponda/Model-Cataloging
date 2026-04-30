@@ -83,7 +83,11 @@ export class ModelsService {
 
   getModelEndpoints(detailsPath: string): Observable<ModelEndpointsResponse | null> {
     return this.http.get<any>(`${this.apiBase}${detailsPath}`).pipe(
-      map(res => res?.data as ModelEndpointsResponse ?? null),
+      map(res => {
+        // OpenRouter may return { data: { endpoints: [...] } } or the object directly
+        const payload = res?.data ?? res;
+        return payload as ModelEndpointsResponse ?? null;
+      }),
       catchError(err => {
         console.error('Failed to load model endpoints', err);
         return of(null);

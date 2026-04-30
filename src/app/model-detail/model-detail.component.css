@@ -1,105 +1,164 @@
+/* ── Loading / not-found ──────────────────────────────── */
 .loading-overlay {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 3rem;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
   color: #666;
+  gap: 1rem;
+  text-align: center;
 }
 
 .not-found {
-  text-align: left;
-  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+  text-align: center;
   color: #888;
+  gap: 0.75rem;
 }
 
-.detail-container {
-  max-width: 100%;
+.not-found h2 {
   margin: 0;
+  font-size: 1.4rem;
+  color: #444;
 }
 
+.not-found p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ── Page container ───────────────────────────────────── */
+.detail-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+}
+
+/* ── Back button ──────────────────────────────────────── */
 .back-btn {
-  margin-bottom: 1rem;
-  padding: 0;
-  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 1.25rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.88rem;
   color: #0073b9;
-  background: none;
-  border: none;
+  background: #e8f4fb;
+  border: 1px solid #b8d9ef;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  font-weight: 500;
 }
 
 .back-btn:hover {
-  text-decoration: underline;
+  background: #d0e9f7;
+  border-color: #0073b9;
+  text-decoration: none;
 }
 
-/* Hero */
+/* ── Hero card ────────────────────────────────────────── */
 .hero-card {
-  margin-bottom: 1.25rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .hero-header {
-  background: linear-gradient(135deg, #003d5b 0%, #006494 100%);
+  background: linear-gradient(135deg, #002d44 0%, #004f7a 60%, #0073b9 100%);
   color: white;
-  padding: 1.25rem 1.5rem;
+  padding: 1.75rem 2rem 1.5rem;
 }
 
 .hero-title-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
+  margin-bottom: 0.5rem;
 }
 
 .model-title {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: white;
+  line-height: 1.2;
+  flex: 1;
 }
 
 .model-id-text {
-  margin: 0.3rem 0 0;
-  font-size: 0.82rem;
-  opacity: 0.75;
+  margin: 0.4rem 0 0;
+  font-size: 0.83rem;
+  opacity: 0.7;
   font-family: monospace;
+  letter-spacing: 0.02em;
 }
 
 .created-text {
-  margin: 0.2rem 0 0;
+  margin: 0.25rem 0 0;
   font-size: 0.82rem;
-  opacity: 0.65;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Description strip */
+.description-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: #fff;
+  border-top: 3px solid #0073b9;
+}
+
+.description-block cds-icon {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  color: #0073b9;
 }
 
 .description-block p {
   margin: 0;
   font-size: 0.92rem;
-  line-height: 1.6;
-  color: #333;
-  padding: 1rem 1.25rem;
+  line-height: 1.65;
+  color: #3a4a5c;
 }
 
-/* Info grid */
+/* ── Info grid ────────────────────────────────────────── */
 .info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .info-card {
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid #dde3ea;
+  border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  background: #fff;
 }
 
 .info-card .card-header {
   background: #f5f8fa;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 0.6rem 1rem;
-  font-weight: 600;
-  font-size: 0.9rem;
+  border-bottom: 1px solid #e2e8ee;
+  padding: 0.65rem 1rem;
+  font-weight: 700;
+  font-size: 0.88rem;
   color: #1a2332;
+  display: flex;
+  align-items: center;
 }
 
 .info-card .card-block {
@@ -110,7 +169,7 @@
   grid-column: 1 / -1;
 }
 
-/* Table */
+/* ── Compact table (arch / pricing) ──────────────────── */
 .table.table-compact {
   width: 100%;
   border-collapse: collapse;
@@ -118,9 +177,9 @@
 }
 
 .table.table-compact td {
-  padding: 0.35rem 0.5rem;
+  padding: 0.4rem 0.5rem;
   vertical-align: middle;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f2f4f7;
 }
 
 .table.table-compact tr:last-child td {
@@ -128,10 +187,11 @@
 }
 
 .info-label {
-  color: #666;
+  color: #6b7a8d;
   font-weight: 500;
   white-space: nowrap;
-  width: 40%;
+  width: 42%;
+  font-size: 0.84rem;
 }
 
 .price-value {
@@ -139,7 +199,7 @@
   color: #1a6e0a;
 }
 
-/* Chips */
+/* ── Chips ────────────────────────────────────────────── */
 .modality-chip,
 .param-chip {
   margin: 2px 4px 2px 0;
@@ -150,78 +210,138 @@
 .params-block {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 5px;
+  padding: 0.25rem 0;
 }
 
-@media (max-width: 640px) {
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Endpoints / Providers table */
+/* ── Providers / Endpoints card ───────────────────────── */
 .endpoints-card {
-  margin-top: 1.25rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid #dde3ea;
+  border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  background: #fff;
 }
 
 .endpoints-header {
   background: #f5f8fa;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 0.6rem 1rem;
-  font-weight: 600;
-  font-size: 0.9rem;
+  border-bottom: 2px solid #dce3eb;
+  padding: 0.7rem 1rem;
+  font-weight: 700;
+  font-size: 0.92rem;
   color: #1a2332;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
+.endpoints-header .badge {
+  background: #0073b9;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 10px;
+  margin-left: 0.25rem;
+}
+
+/* Scrollable wrapper for wide table */
+.table-scroll {
+  overflow-x: auto;
+  width: 100%;
+}
+
 .endpoints-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
-  min-width: 750px;
+  font-size: 0.84rem;
+  min-width: 780px;
 }
 
-.endpoints-table th {
-  background: #eef2f6;
-  padding: 0.5rem 0.75rem;
+.endpoints-table thead th {
+  background: #eef2f7;
+  padding: 0.55rem 0.85rem;
   text-align: left;
   font-weight: 600;
-  font-size: 0.78rem;
-  color: #555;
+  font-size: 0.76rem;
+  color: #4a5568;
   border-bottom: 2px solid #dce3eb;
   white-space: nowrap;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
-.endpoints-table td {
-  padding: 0.45rem 0.75rem;
-  border-bottom: 1px solid #f0f0f0;
+.endpoints-table tbody td {
+  padding: 0.5rem 0.85rem;
+  border-bottom: 1px solid #f0f3f7;
   vertical-align: middle;
+  color: #2d3a4a;
+}
+
+.endpoints-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .endpoints-table tbody tr:hover {
-  background: #f9fbfd;
+  background: #f5f9fd;
 }
 
+/* Provider name cell */
 .provider-cell {
   display: flex;
   align-items: center;
   gap: 0.4rem;
   flex-wrap: wrap;
+  font-weight: 600;
+  color: #1a2332;
 }
 
 .tag-chip {
-  font-size: 0.7rem;
-  padding: 0 0.35rem;
+  font-size: 0.68rem;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 500;
 }
 
-.uptime-good { color: #1a6e0a; font-weight: 600; }
-.uptime-warn { color: #b55f00; font-weight: 600; }
-.uptime-bad  { color: #c21d03; font-weight: 600; }
+/* Uptime colouring */
+.uptime-good { color: #1a6e0a; font-weight: 700; }
+.uptime-warn { color: #b55f00; font-weight: 700; }
+.uptime-bad  { color: #c21d03; font-weight: 700; }
 
-.status-ok   { color: #1a6e0a; font-weight: 600; }
-.status-warn { color: #b55f00; font-weight: 600; }
+/* Status badges */
+.status-ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #1a6e0a;
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+.status-warn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #b55f00;
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 700px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-header {
+    padding: 1.25rem 1.25rem 1rem;
+  }
+
+  .model-title {
+    font-size: 1.3rem;
+  }
+
+  .detail-container {
+    padding-bottom: 2rem;
+  }
+}
