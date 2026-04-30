@@ -143,11 +143,9 @@ export class ModelsListComponent implements OnInit {
 
   constructor(private modelsService: ModelsService, private router: Router) {}
 
-  @HostListener('document:click', ['$event.target'])
-  onDocClick(target: HTMLElement): void {
-    if (!target.closest('.provider-dropdown')) {
-      this.providerDropdownOpen = false;
-    }
+  @HostListener('document:click')
+  onDocClick(): void {
+    this.providerDropdownOpen = false;
   }
 
   ngOnInit(): void {
