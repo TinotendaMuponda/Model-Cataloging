@@ -42,19 +42,41 @@
     <!-- Latest Additions side pane -->
     <aside class="side-pane" *ngIf="recentlyAdded.length > 0">
       <div class="side-pane-header">
-        <cds-icon shape="bolt" size="md" style="color:#1a6e0a; vertical-align:middle; margin-right:0.4rem;"></cds-icon>
-        <span>Latest Additions</span>
-        <span class="label label-success side-pane-count">{{ recentlyAdded.length }}</span>
+        <div class="side-pane-title-row">
+          <span class="side-pane-icon-wrap">
+            <cds-icon shape="bolt" size="sm"></cds-icon>
+          </span>
+          <span class="side-pane-title">Latest Additions</span>
+        </div>
+        <span class="side-pane-subtitle">Added in the last 14 days</span>
+        <span class="side-pane-count">{{ recentlyAdded.length }} new</span>
       </div>
       <ul class="recent-list">
-        <li class="recent-item" *ngFor="let m of recentlyAdded" (click)="openDetail(m)" role="button" tabindex="0" (keyup.enter)="openDetail(m)">
-          <div class="recent-name">{{ m.name || m.id }}</div>
-          <div class="recent-meta">
-            <span class="recent-id">{{ m.id }}</span>
-            <span class="recent-date">{{ formatDate(m.created) }}</span>
+        <li class="recent-item"
+            *ngFor="let m of recentlyAdded; let i = index"
+            (click)="openDetail(m)"
+            role="button"
+            tabindex="0"
+            (keyup.enter)="openDetail(m)">
+          <div class="recent-item-inner">
+            <span class="recent-rank">{{ i + 1 }}</span>
+            <div class="recent-body">
+              <div class="recent-name">{{ m.name || m.id }}</div>
+              <div class="recent-provider">{{ m.id.split('/')[0] }}</div>
+              <div class="recent-meta">
+                <span class="recent-date">
+                  <cds-icon shape="calendar" size="xs" style="vertical-align:middle; margin-right:2px;"></cds-icon>
+                  {{ formatDate(m.created) }}
+                </span>
+                <span class="recent-price" *ngIf="m.pricing?.prompt === '0'">Free</span>
+              </div>
+            </div>
           </div>
         </li>
       </ul>
+      <div class="side-pane-footer">
+        Showing {{ recentlyAdded.length }} recent model{{ recentlyAdded.length !== 1 ? 's' : '' }}
+      </div>
     </aside>
 
     <!-- Main model cards grid -->

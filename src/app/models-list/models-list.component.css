@@ -72,103 +72,201 @@
 
 /* ── Left side pane — sticky, scrolls its own list ───── */
 .side-pane {
-  width: 255px;
+  width: 270px;
   flex-shrink: 0;
   background: #fff;
-  border: 1px solid #dde3ea;
-  border-radius: 6px;
+  border: 1px solid #d0d9e4;
+  border-radius: 8px;
   overflow: hidden;
   position: sticky;
-  top: 110px;           /* navbar (48) + search bar (~62) */
+  top: 110px;
   max-height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
+/* ── Header ───────────────────────────────────────────── */
 .side-pane-header {
+  background: linear-gradient(135deg, #003d5b 0%, #005a82 100%);
+  padding: 0.9rem 1rem 0.75rem;
+  flex-shrink: 0;
+  border-bottom: none;
+}
+
+.side-pane-title-row {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  padding: 0.7rem 1rem;
-  background: linear-gradient(135deg, #e8f5e9 0%, #f0faf0 100%);
-  border-bottom: 1px solid #c5dfc5;
-  font-weight: 700;
-  font-size: 0.88rem;
-  color: #1a4d1a;
-  letter-spacing: 0.01em;
+  gap: 0.45rem;
+  margin-bottom: 0.2rem;
+}
+
+.side-pane-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 5px;
+  color: #fff;
   flex-shrink: 0;
 }
 
-.side-pane-count {
-  margin-left: auto;
-  background: #1a6e0a;
-  color: #fff;
-  font-size: 0.7rem;
+.side-pane-title {
+  font-size: 0.92rem;
   font-weight: 700;
-  padding: 1px 7px;
-  border-radius: 10px;
+  color: #fff;
+  letter-spacing: 0.02em;
 }
 
+.side-pane-subtitle {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 0.55rem;
+  padding-left: 0.1rem;
+}
+
+.side-pane-count {
+  display: inline-block;
+  background: #27ae60;
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ── Scrollable list ──────────────────────────────────── */
 .recent-list {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0.4rem 0;
   overflow-y: auto;
   flex: 1;
 }
 
 .recent-list::-webkit-scrollbar { width: 4px; }
-.recent-list::-webkit-scrollbar-thumb { background: #cdd5de; border-radius: 4px; }
+.recent-list::-webkit-scrollbar-thumb { background: #c8d2db; border-radius: 4px; }
+.recent-list::-webkit-scrollbar-track { background: transparent; }
 
+/* ── Each item ────────────────────────────────────────── */
 .recent-item {
-  padding: 0.55rem 1rem;
-  border-bottom: 1px solid #f0f3f6;
   cursor: pointer;
-  transition: background 0.13s;
+  transition: background 0.12s, border-left-color 0.12s;
+  border-left: 3px solid transparent;
 }
 
-.recent-item:last-child { border-bottom: none; }
-.recent-item:hover { background: #f0f7f0; }
-.recent-item:focus { outline: 2px solid #0073b9; outline-offset: -2px; }
+.recent-item:hover {
+  background: #f0f6fb;
+  border-left-color: #0073b9;
+}
+
+.recent-item:focus {
+  outline: 2px solid #0073b9;
+  outline-offset: -2px;
+}
+
+.recent-item-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.6rem 0.85rem 0.6rem 0.75rem;
+}
+
+/* Rank number circle */
+.recent-rank {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #eef2f7;
+  color: #556;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.1rem;
+  transition: background 0.12s, color 0.12s;
+}
+
+.recent-item:hover .recent-rank {
+  background: #0073b9;
+  color: #fff;
+}
+
+.recent-body {
+  flex: 1;
+  min-width: 0;
+}
 
 .recent-name {
-  font-size: 0.82rem;
+  font-size: 0.83rem;
   font-weight: 600;
-  color: #0a4fa8;
-  line-height: 1.3;
-  margin-bottom: 0.2rem;
+  color: #1a2d44;
+  line-height: 1.35;
+  margin-bottom: 0.1rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.recent-item:hover .recent-name { text-decoration: underline; }
+.recent-item:hover .recent-name {
+  color: #0073b9;
+}
+
+.recent-provider {
+  font-size: 0.7rem;
+  color: #8a99aa;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+}
 
 .recent-meta {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
 }
 
-.recent-id {
-  font-size: 0.7rem;
-  color: #9aabb8;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 120px;
-  font-family: monospace;
+.recent-date {
+  font-size: 0.68rem;
+  color: #a0adb8;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
-.recent-date {
-  font-size: 0.7rem;
-  color: #1a6e0a;
-  font-weight: 600;
-  white-space: nowrap;
-  flex-shrink: 0;
+.recent-price {
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: #fff;
+  background: #1a6e0a;
+  padding: 1px 5px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
+
+/* ── Footer ───────────────────────────────────────────── */
+.side-pane-footer {
+  flex-shrink: 0;
+  padding: 0.5rem 1rem;
+  font-size: 0.7rem;
+  color: #9aabb8;
+  background: #f8fafc;
+  border-top: 1px solid #e8edf3;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
 
 /* ── Main content — grows, cards scroll with the page ── */
 .main-content {
@@ -315,7 +413,7 @@
   .side-pane {
     width: 100%;
     position: static;
-    max-height: 260px;
+    max-height: 320px;
     order: -1;
   }
 }
