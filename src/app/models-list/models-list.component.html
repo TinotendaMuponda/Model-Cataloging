@@ -65,7 +65,7 @@
       <!-- Modality -->
       <div class="filter-row">
         <span class="filter-label">
-          <cds-icon shape="tag" size="xs"></cds-icon>Modality
+          <cds-icon shape="tag" size="sm"></cds-icon>Modality
         </span>
         <div class="chip-group">
           <button class="filter-chip" [class.active]="selectedModality === ''"
@@ -79,7 +79,7 @@
       <!-- Pricing -->
       <div class="filter-row">
         <span class="filter-label">
-          <cds-icon shape="dollar" size="xs"></cds-icon>Pricing
+          <cds-icon shape="dollar" size="sm"></cds-icon>Pricing
         </span>
         <div class="chip-group">
           <button class="filter-chip" [class.active]="selectedPricing === ''"
@@ -94,7 +94,7 @@
       <!-- Context -->
       <div class="filter-row">
         <span class="filter-label">
-          <cds-icon shape="layers" size="xs"></cds-icon>Context
+          <cds-icon shape="layers" size="sm"></cds-icon>Context
         </span>
         <div class="chip-group">
           <button class="filter-chip"
@@ -107,7 +107,7 @@
       <!-- Capabilities — multi-select toggle chips -->
       <div class="filter-row">
         <span class="filter-label">
-          <cds-icon shape="bolt" size="xs"></cds-icon>Capability
+          <cds-icon shape="bolt" size="sm"></cds-icon>Capability
         </span>
         <div class="chip-group">
           <button class="filter-chip cap-filter-chip"
@@ -115,7 +115,7 @@
                   [class.active]="selectedCapabilities.has(c.value)"
                   [ngClass]="selectedCapabilities.has(c.value) ? 'cap-active-' + c.cls : ''"
                   (click)="toggleCapability(c.value)">
-            <cds-icon [attr.shape]="c.icon" size="xs" style="margin-right:3px; vertical-align:middle;"></cds-icon>
+            <cds-icon [attr.shape]="c.icon" size="sm" style="vertical-align:middle;"></cds-icon>
             {{ c.label }}
             <span *ngIf="selectedCapabilities.has(c.value)" class="cap-check">✓</span>
           </button>
@@ -125,7 +125,7 @@
       <!-- Provider + Sort on the same row -->
       <div class="filter-row">
         <span class="filter-label">
-          <cds-icon shape="organization" size="xs"></cds-icon>Provider
+          <cds-icon shape="organization" size="sm"></cds-icon>Provider
         </span>
         <select class="filter-native-select" [(ngModel)]="selectedProvider" (change)="applyFilters()">
           <option value="">All providers</option>
@@ -133,7 +133,7 @@
         </select>
 
         <span class="filter-label filter-label-sort">
-          <cds-icon shape="sort-by" size="xs"></cds-icon>Sort
+          <cds-icon shape="sort-by" size="sm"></cds-icon>Sort
         </span>
         <select class="filter-native-select" [(ngModel)]="sortBy" (change)="applyFilters()">
           <option *ngFor="let o of sortOptions" [value]="o.value">{{ o.label }}</option>
