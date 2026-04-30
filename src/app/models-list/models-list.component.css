@@ -3,35 +3,25 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
   padding: 3rem;
   color: #666;
   gap: 0.75rem;
 }
 
-/* ── Content wrapper (fills remaining viewport) ───────── */
-.content-wrapper {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-}
-
-/* ── Search bar ───────────────────────────────────────── */
+/* ── Search bar — sticky just below fixed navbar ──────── */
 .search-bar {
   display: flex;
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
-  flex-shrink: 0;
+  position: sticky;
+  top: 48px;
+  z-index: 200;
   background: #f4f6f8;
   padding: 0.7rem 0;
-  margin-bottom: 0;
+  margin-bottom: 1.25rem;
   border-bottom: 1px solid #e2e6ea;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-  position: relative;
-  z-index: 10;
 }
 
 .search-input-wrapper {
@@ -64,7 +54,7 @@
 .search-input:focus {
   outline: none;
   border-color: #0073b9;
-  box-shadow: 0 0 0 3px rgba(0,115,185,0.15);
+  box-shadow: 0 0 0 3px rgba(0, 115, 185, 0.15);
 }
 
 .model-count {
@@ -73,37 +63,117 @@
   white-space: nowrap;
 }
 
-/* ── Page layout ──────────────────────────────────────── */
+/* ── Two-column layout ────────────────────────────────── */
 .page-layout {
   display: flex;
   gap: 1.25rem;
   align-items: flex-start;
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-  padding-top: 1.25rem;
 }
 
+/* ── Left side pane — sticky, scrolls its own list ───── */
+.side-pane {
+  width: 255px;
+  flex-shrink: 0;
+  background: #fff;
+  border: 1px solid #dde3ea;
+  border-radius: 6px;
+  overflow: hidden;
+  position: sticky;
+  top: 110px;           /* navbar (48) + search bar (~62) */
+  max-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.side-pane-header {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.7rem 1rem;
+  background: linear-gradient(135deg, #e8f5e9 0%, #f0faf0 100%);
+  border-bottom: 1px solid #c5dfc5;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: #1a4d1a;
+  letter-spacing: 0.01em;
+  flex-shrink: 0;
+}
+
+.side-pane-count {
+  margin-left: auto;
+  background: #1a6e0a;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 10px;
+}
+
+.recent-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.recent-list::-webkit-scrollbar { width: 4px; }
+.recent-list::-webkit-scrollbar-thumb { background: #cdd5de; border-radius: 4px; }
+
+.recent-item {
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid #f0f3f6;
+  cursor: pointer;
+  transition: background 0.13s;
+}
+
+.recent-item:last-child { border-bottom: none; }
+.recent-item:hover { background: #f0f7f0; }
+.recent-item:focus { outline: 2px solid #0073b9; outline-offset: -2px; }
+
+.recent-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #0a4fa8;
+  line-height: 1.3;
+  margin-bottom: 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recent-item:hover .recent-name { text-decoration: underline; }
+
+.recent-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.recent-id {
+  font-size: 0.7rem;
+  color: #9aabb8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+  font-family: monospace;
+}
+
+.recent-date {
+  font-size: 0.7rem;
+  color: #1a6e0a;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Main content — grows, cards scroll with the page ── */
 .main-content {
   flex: 1;
   min-width: 0;
-  height: 100%;
-  overflow-y: auto;
-  padding-right: 0.25rem;
-  padding-bottom: 1.5rem;
-}
-
-.main-content::-webkit-scrollbar {
-  width: 6px;
-}
-
-.main-content::-webkit-scrollbar-thumb {
-  background: #cdd5de;
-  border-radius: 6px;
-}
-
-.main-content::-webkit-scrollbar-track {
-  background: transparent;
 }
 
 /* ── Cards grid ───────────────────────────────────────── */
@@ -126,7 +196,7 @@
 }
 
 .model-card:hover {
-  box-shadow: 0 6px 18px rgba(0,0,0,0.11);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.11);
   transform: translateY(-2px);
   border-color: #b0c4d8;
 }
@@ -237,135 +307,15 @@
   margin: 0;
 }
 
-/* ── Left side pane ───────────────────────────────────── */
-.side-pane {
-  width: 255px;
-  flex-shrink: 0;
-  background: #fff;
-  border: 1px solid #dde3ea;
-  border-radius: 6px;
-  overflow: hidden;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-self: stretch;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.side-pane-header {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.7rem 1rem;
-  background: linear-gradient(135deg, #e8f5e9 0%, #f0faf0 100%);
-  border-bottom: 1px solid #c5dfc5;
-  font-weight: 700;
-  font-size: 0.88rem;
-  color: #1a4d1a;
-  letter-spacing: 0.01em;
-}
-
-.side-pane-count {
-  margin-left: auto;
-  background: #1a6e0a;
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 1px 7px;
-  border-radius: 10px;
-}
-
-.recent-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  overflow-y: auto;
-  flex: 1;
-}
-
-.recent-list::-webkit-scrollbar {
-  width: 4px;
-}
-.recent-list::-webkit-scrollbar-thumb {
-  background: #cdd5de;
-  border-radius: 4px;
-}
-
-.recent-item {
-  padding: 0.55rem 1rem;
-  border-bottom: 1px solid #f0f3f6;
-  cursor: pointer;
-  transition: background 0.13s;
-}
-
-.recent-item:last-child {
-  border-bottom: none;
-}
-
-.recent-item:hover {
-  background: #f0f7f0;
-}
-
-.recent-item:focus {
-  outline: 2px solid #0073b9;
-  outline-offset: -2px;
-}
-
-.recent-name {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #0a4fa8;
-  line-height: 1.3;
-  margin-bottom: 0.2rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.recent-item:hover .recent-name {
-  text-decoration: underline;
-}
-
-.recent-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.recent-id {
-  font-size: 0.7rem;
-  color: #9aabb8;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 120px;
-  font-family: monospace;
-}
-
-.recent-date {
-  font-size: 0.7rem;
-  color: #1a6e0a;
-  font-weight: 600;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 768px) {
   .page-layout {
     flex-direction: column;
-    overflow-y: auto;
-    overflow-x: hidden;
   }
   .side-pane {
     width: 100%;
-    height: auto;
+    position: static;
     max-height: 260px;
     order: -1;
-  }
-  .main-content {
-    overflow-y: visible;
-    height: auto;
   }
 }

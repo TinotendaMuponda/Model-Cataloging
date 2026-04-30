@@ -1,17 +1,17 @@
-/* Basic layout and Clarity overrides */
+/* ── Reset & base ─────────────────────────────────────── */
 html, body {
   height: 100%;
   margin: 0;
-  overflow: hidden;
   font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
   background: #f4f6f8;
   color: #1a2332;
 }
 
+/* ── Fixed navbar ─────────────────────────────────────── */
 .app-header {
   background: #003d5b;
   color: white;
-  padding: 0.75rem 1.5rem;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
@@ -19,8 +19,8 @@ html, body {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 200;
   height: 48px;
+  z-index: 300;
   box-sizing: border-box;
 }
 
@@ -42,27 +42,9 @@ html, body {
   margin-left: 0.25rem;
 }
 
-/* Content area anchored directly to the viewport — no flex chain required */
+/* ── Page body — push content below fixed navbar ─────── */
 .content-container {
-  position: fixed;
-  top: 48px;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  margin-top: 48px;
+  padding: 1.25rem 1.5rem;
   box-sizing: border-box;
-  padding: 1.25rem 1.5rem 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-/* Angular inserts routed components as siblings of router-outlet inside main.
-   Give them flex: 1 so they stretch to fill the fixed container. */
-app-models-list,
-app-model-detail {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
 }
