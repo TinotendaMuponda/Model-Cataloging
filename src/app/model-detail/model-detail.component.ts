@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModelsService, ModelInfo } from '../models.service';
+import { forkJoin } from 'rxjs';
+import { ModelsService, ModelInfo, ModelEndpoint, ModelEndpointsResponse } from '../models.service';
 
 @Component({
   selector: 'app-model-detail',
@@ -9,6 +10,8 @@ import { ModelsService, ModelInfo } from '../models.service';
 })
 export class ModelDetailComponent implements OnInit {
   model: ModelInfo | null = null;
+  endpoints: ModelEndpoint[] = [];
+  endpointsDetail: ModelEndpointsResponse | null = null;
   loading = true;
   notFound = false;
 
@@ -19,12 +22,17 @@ export class ModelDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // The route param ":id" may contain slashes encoded as %2F
     const rawId = this.route.snapshot.paramMap.get('id') || '';
     const id = decodeURIComponent(rawId);
+    const detailsPath = `/api/v1/models/${id}/endpoints`;
 
-    this.modelsService.listModels().subscribe(models => {
+    forkJoin({
+      models: this.modelsService.listModels(),
+      endpointsData: this.modelsService.getModelEndpoints(detailsPath)
+    }).subscribe(({ models, endpointsData }) => {
       this.model = models.find(m => m.id === id) || null;
+      this.endpointsDetail = endpointsData;
+      this.endpoints = endpointsData?.endpoints ?? [];
       this.notFound = !this.model;
       this.loading = false;
     });
@@ -57,5 +65,12 @@ export class ModelDetailComponent implements OnInit {
 
   objectKeys(obj: any): string[] {
     return obj ? Object.keys(obj) : [];
+  }
+
+  getUptimeClass(uptime?: number | null): string {
+    if (uptime == null) return '';
+    if (uptime >= 99) return 'uptime-good';
+    if (uptime >= 95) return 'uptime-warn';
+    return 'uptime-bad';
   }
 }

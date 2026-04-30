@@ -8,14 +8,14 @@
 }
 
 .not-found {
-  text-align: center;
+  text-align: left;
   padding: 3rem;
   color: #888;
 }
 
 .detail-container {
-  max-width: 960px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0;
 }
 
 .back-btn {
@@ -77,6 +77,7 @@
   font-size: 0.92rem;
   line-height: 1.6;
   color: #333;
+  padding: 1rem 1.25rem;
 }
 
 /* Info grid */
@@ -157,3 +158,70 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Endpoints / Providers table */
+.endpoints-card {
+  margin-top: 1.25rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.endpoints-header {
+  background: #f5f8fa;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #1a2332;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.endpoints-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  min-width: 750px;
+}
+
+.endpoints-table th {
+  background: #eef2f6;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: #555;
+  border-bottom: 2px solid #dce3eb;
+  white-space: nowrap;
+}
+
+.endpoints-table td {
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+
+.endpoints-table tbody tr:hover {
+  background: #f9fbfd;
+}
+
+.provider-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.tag-chip {
+  font-size: 0.7rem;
+  padding: 0 0.35rem;
+}
+
+.uptime-good { color: #1a6e0a; font-weight: 600; }
+.uptime-warn { color: #b55f00; font-weight: 600; }
+.uptime-bad  { color: #c21d03; font-weight: 600; }
+
+.status-ok   { color: #1a6e0a; font-weight: 600; }
+.status-warn { color: #b55f00; font-weight: 600; }

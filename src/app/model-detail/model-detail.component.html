@@ -105,4 +105,58 @@
     </div>
 
   </div>
+
+  <!-- Providers / Endpoints -->
+  <div class="card endpoints-card" *ngIf="endpoints.length">
+    <div class="card-header endpoints-header">
+      Available Providers
+      <span class="badge badge-blue">{{ endpoints.length }}</span>
+    </div>
+    <div class="card-block" style="padding: 0; overflow-x: auto;">
+      <table class="table table-compact endpoints-table">
+        <thead>
+          <tr>
+            <th>Provider</th>
+            <th>Context</th>
+            <th>Max Output</th>
+            <th>Input / M</th>
+            <th>Output / M</th>
+            <th>Uptime 30m</th>
+            <th>Uptime 1d</th>
+            <th>Quantization</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ep of endpoints">
+            <td class="provider-cell">
+              <strong>{{ ep.provider_name }}</strong>
+              <span *ngIf="ep.tag" class="label label-light tag-chip">{{ ep.tag }}</span>
+            </td>
+            <td>{{ formatContext(ep.context_length) }}</td>
+            <td>{{ ep.max_completion_tokens ? (ep.max_completion_tokens | number) : '-' }}</td>
+            <td class="price-value">{{ formatPrice(ep.pricing?.prompt) }}</td>
+            <td class="price-value">{{ formatPrice(ep.pricing?.completion) }}</td>
+            <td>
+              <span [class]="getUptimeClass(ep.uptime_last_30m)">
+                {{ ep.uptime_last_30m != null ? (ep.uptime_last_30m | number:'1.1-1') + '%' : '-' }}
+              </span>
+            </td>
+            <td>
+              <span [class]="getUptimeClass(ep.uptime_last_1d)">
+                {{ ep.uptime_last_1d != null ? (ep.uptime_last_1d | number:'1.1-1') + '%' : '-' }}
+              </span>
+            </td>
+            <td>{{ ep.quantization || '-' }}</td>
+            <td>
+              <span [class]="ep.status === 0 ? 'status-ok' : 'status-warn'">
+                {{ ep.status === 0 ? '✓ Online' : '⚠ Degraded' }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
