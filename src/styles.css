@@ -8,34 +8,20 @@ html, body {
   color: #1a2332;
 }
 
-/* Stretch the app shell and routed component to fill the viewport */
-app-root {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-/* router-outlet inserts the component as a sibling — make it fill remaining space */
-app-root > main > app-models-list,
-app-root > main > app-model-detail {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-}
-
-
 .app-header {
   background: #003d5b;
   color: white;
   padding: 0.75rem 1.5rem;
   display: flex;
   align-items: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  position: sticky;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 200;
+  height: 48px;
+  box-sizing: border-box;
 }
 
 .branding {
@@ -56,12 +42,15 @@ app-root > main > app-model-detail {
   margin-left: 0.25rem;
 }
 
+/* Content area anchored directly to the viewport — no flex chain required */
 .content-container {
-  height: calc(100vh - 48px);
+  position: fixed;
+  top: 48px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   box-sizing: border-box;
   padding: 1.25rem 1.5rem 0;
-  max-width: 1600px;
-  margin: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
