@@ -724,6 +724,25 @@
   box-shadow: 0 1px 4px rgba(45, 138, 62, 0.2) !important;
 }
 
+.multi-provider-chip[disabled] {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.spinner-inline {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border: 2px solid #ccd2d9;
+  border-top-color: #0073b9;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
 /* ── Provider count pill on model cards ──────────────── */
 .provider-count-chip {
   color: #737373;

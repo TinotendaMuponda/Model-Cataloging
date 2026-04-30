@@ -135,11 +135,13 @@
         <!-- Multi-provider toggle -->
         <button class="filter-chip multi-provider-chip"
                 [class.active]="multiProviderOnly"
-                (click)="multiProviderOnly = !multiProviderOnly; applyFilters()"
+                [disabled]="loadingProviderCounts"
+                (click)="toggleMultiProvider()"
                 [tip]="'Show only models available from more than one provider — useful for comparing costs and reliability across providers.'">
-          <cds-icon shape="rack-server" size="sm" style="vertical-align:middle;"></cds-icon>
-          Multi-provider
-          <span *ngIf="multiProviderOnly" class="cap-check">✓</span>
+          <span *ngIf="loadingProviderCounts" class="spinner spinner-inline"></span>
+          <cds-icon *ngIf="!loadingProviderCounts" shape="rack-server" size="sm" style="vertical-align:middle;"></cds-icon>
+          {{ loadingProviderCounts ? 'Loading…' : 'Multi-provider' }}
+          <span *ngIf="multiProviderOnly && !loadingProviderCounts" class="cap-check">✓</span>
         </button>
 
         <span class="filter-label filter-label-sort">

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, of, from } from 'rxjs';
+import { catchError, map, mergeMap, toArray } from 'rxjs/operators';
 
 export interface ModelArchitecture {
   modality?: string;
@@ -66,6 +66,10 @@ export class ModelsService {
   private apiBase = 'https://openrouter.ai';
   private apiUrl = `${this.apiBase}/api/v1/models`;
 
+  /** Cache: model id → endpoint count. Populated lazily on first filter use. */
+  private endpointCountCache = new Map<string, number>();
+  endpointCountsLoaded = false;
+
   constructor(private http: HttpClient) {}
 
   listModels(): Observable<ModelInfo[]> {
@@ -85,13 +89,51 @@ export class ModelsService {
   getModelEndpoints(detailsPath: string): Observable<ModelEndpointsResponse | null> {
     return this.http.get<any>(`${this.apiBase}${detailsPath}`).pipe(
       map(res => {
-        // OpenRouter may return { data: { endpoints: [...] } } or the object directly
         const payload = res?.data ?? res;
         return payload as ModelEndpointsResponse ?? null;
       }),
       catchError(err => {
         console.error('Failed to load model endpoints', err);
         return of(null);
+      })
+    );
+  }
+
+  /**
+   * Fetches endpoint counts for every model, max 10 in parallel.
+   * Results are cached — safe to call multiple times.
+   * Calls `onProgress(modelId, count)` as each result arrives.
+   */
+  loadAllEndpointCounts(
+    models: ModelInfo[],
+    onProgress: (id: string, count: number) => void
+  ): Observable<void> {
+    if (this.endpointCountsLoaded) return of(undefined);
+
+    return from(models).pipe(
+      mergeMap(m => {
+        // Return from cache immediately if already fetched
+        if (this.endpointCountCache.has(m.id)) {
+          onProgress(m.id, this.endpointCountCache.get(m.id)!);
+          return of(undefined);
+        }
+        return this.http.get<any>(`${this.apiBase}/api/v1/models/${m.id}/endpoints`).pipe(
+          map(res => {
+            const payload = res?.data ?? res;
+            const count: number = (payload?.endpoints ?? []).length;
+            this.endpointCountCache.set(m.id, count);
+            onProgress(m.id, count);
+          }),
+          catchError(() => {
+            this.endpointCountCache.set(m.id, 0);
+            onProgress(m.id, 0);
+            return of(undefined);
+          })
+        );
+      }, 10), // concurrency = 10
+      toArray(),
+      map(() => {
+        this.endpointCountsLoaded = true;
       })
     );
   }

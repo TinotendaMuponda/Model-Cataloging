@@ -22,6 +22,7 @@ export class ModelsListComponent implements OnInit {
   selectedProvider     = '';
   selectedCapabilities: Set<string> = new Set(); // multi-select: 'tools' | 'vision' | 'web_search' | 'discount'
   multiProviderOnly    = false;    // show only models with > 1 provider
+  loadingProviderCounts = false;   // true while fetching endpoint counts
   sortBy               = 'default';
   filtersOpen        = false;
 
@@ -73,6 +74,41 @@ export class ModelsListComponent implements OnInit {
     // Reassign so Angular detects change
     this.selectedCapabilities = new Set(this.selectedCapabilities);
     this.applyFilters();
+  }
+
+  toggleMultiProvider(): void {
+    this.multiProviderOnly = !this.multiProviderOnly;
+
+    if (!this.multiProviderOnly) {
+      this.applyFilters();
+      return;
+    }
+
+    // If counts already loaded, just filter immediately
+    if (this.modelsService.endpointCountsLoaded) {
+      this.applyFilters();
+      return;
+    }
+
+    // First toggle: fetch all endpoint counts lazily (10 concurrent)
+    this.loadingProviderCounts = true;
+    this.modelsService.loadAllEndpointCounts(
+      this.allModels,
+      (id, count) => {
+        const m = this.allModels.find(x => x.id === id);
+        if (m) m.num_endpoints = count;
+        // Re-apply filter progressively as counts arrive
+        this.applyFilters();
+      }
+    ).subscribe({
+      complete: () => {
+        this.loadingProviderCounts = false;
+        this.applyFilters();
+      },
+      error: () => {
+        this.loadingProviderCounts = false;
+      }
+    });
   }
 
   // ── Capability helpers ───────────────────────────────────
@@ -168,8 +204,8 @@ export class ModelsListComponent implements OnInit {
       // Provider
       if (this.selectedProvider && m.id.split('/')[0] !== this.selectedProvider) return false;
 
-      // Multi-provider only
-      if (this.multiProviderOnly && (m.num_endpoints ?? 1) <= 1) return false;
+      // Multi-provider only — only exclude when count is known and is ≤ 1
+      if (this.multiProviderOnly && m.num_endpoints != null && m.num_endpoints <= 1) return false;
 
       // Capability (AND — model must have ALL selected capabilities)
       if (this.selectedCapabilities.has('tools')      && !this.hasTools(m))      return false;
