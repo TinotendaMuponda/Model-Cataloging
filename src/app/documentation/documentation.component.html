@@ -1,0 +1,339 @@
+<div class="doc-layout">
+
+  <!-- ── Sidebar nav ───────────────────────────────── -->
+  <aside class="doc-sidebar">
+    <div class="doc-sidebar-inner">
+      <p class="doc-sidebar-heading">On this page</p>
+      <nav>
+        <button *ngFor="let s of sections"
+                class="doc-nav-item"
+                [class.active]="activeSection === s.id"
+                (click)="scrollTo(s.id)">
+          <cds-icon [attr.shape]="s.icon" size="sm"></cds-icon>
+          {{ s.label }}
+        </button>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ── Main content ──────────────────────────────── -->
+  <article class="doc-content">
+
+    <!-- Hero -->
+    <div class="doc-hero">
+      <div class="doc-hero-icon">
+        <cds-icon shape="network-globe" size="xl"></cds-icon>
+      </div>
+      <div>
+        <h1 class="doc-hero-title">LLM Catalog Documentation</h1>
+        <p class="doc-hero-sub">Your decision-intelligence hub for evaluating and selecting large language models — powered by the OpenRouter API.</p>
+        <div class="doc-hero-badges">
+          <span class="doc-badge blue">Angular 15</span>
+          <span class="doc-badge teal">OpenRouter API</span>
+          <span class="doc-badge purple">Clarity Design</span>
+          <span class="doc-badge green">Live Data</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Overview ──────────────────────────────────── -->
+    <section id="overview" class="doc-section">
+      <h2 class="doc-section-title">
+        <cds-icon shape="home" size="md"></cds-icon> Overview
+      </h2>
+      <p>The <strong>LLM Catalog</strong> is a real-time catalogue of every large language model available through <a href="https://openrouter.ai" target="_blank" rel="noopener">OpenRouter</a>. It was built to help ASU decision-makers, researchers, and engineers quickly evaluate, compare, and select the right AI model for any task — without wading through scattered API documentation.</p>
+
+      <div class="doc-callout info">
+        <cds-icon shape="info-standard" size="sm"></cds-icon>
+        <span>All model data is fetched live from the OpenRouter API — prices, capabilities, and provider availability are always up to date.</span>
+      </div>
+
+      <div class="doc-feature-grid">
+        <div class="doc-feature-card">
+          <div class="doc-feature-icon blue"><cds-icon shape="search" size="md"></cds-icon></div>
+          <h3>Instant Search</h3>
+          <p>Full-text search across model names and IDs in real time.</p>
+        </div>
+        <div class="doc-feature-card">
+          <div class="doc-feature-icon teal"><cds-icon shape="filter-2" size="md"></cds-icon></div>
+          <h3>Smart Filters</h3>
+          <p>Filter by modality, pricing, context window, capabilities, and provider.</p>
+        </div>
+        <div class="doc-feature-card">
+          <div class="doc-feature-icon purple"><cds-icon shape="tag" size="md"></cds-icon></div>
+          <h3>Capability Badges</h3>
+          <p>At-a-glance indicators for Tool Use, Vision, Web Search, and Discount pricing.</p>
+        </div>
+        <div class="doc-feature-card">
+          <div class="doc-feature-icon green"><cds-icon shape="rack-server" size="md"></cds-icon></div>
+          <h3>Provider Insights</h3>
+          <p>See how many independent providers host each model, with uptime and pricing per endpoint.</p>
+        </div>
+        <div class="doc-feature-card">
+          <div class="doc-feature-icon orange"><cds-icon shape="bolt" size="md"></cds-icon></div>
+          <h3>Latest Additions</h3>
+          <p>A live sidebar tracks models added in the last 14 days so you never miss a release.</p>
+        </div>
+        <div class="doc-feature-card">
+          <div class="doc-feature-icon red"><cds-icon shape="organization" size="md"></cds-icon></div>
+          <h3>Provider Logos</h3>
+          <p>Real brand logos across cards, filters, and detail pages for instant visual recognition.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Getting Started ───────────────────────────── -->
+    <section id="getting-started" class="doc-section">
+      <h2 class="doc-section-title">
+        <cds-icon shape="play" size="md"></cds-icon> Getting Started
+      </h2>
+      <p>No login or API key is needed to browse the catalog. Just open the app and you'll see the full list of available models loaded automatically.</p>
+
+      <ol class="doc-steps">
+        <li>
+          <span class="doc-step-num">1</span>
+          <div>
+            <strong>Browse the catalog</strong>
+            <p>The home page shows all models as cards. Each card displays the provider logo, model name, modality badge, capability chips, context window size, and pricing at a glance.</p>
+          </div>
+        </li>
+        <li>
+          <span class="doc-step-num">2</span>
+          <div>
+            <strong>Use the search bar</strong>
+            <p>Type any part of a model name or ID (e.g. <code>gpt</code>, <code>claude</code>, <code>llama</code>) to instantly filter the list.</p>
+          </div>
+        </li>
+        <li>
+          <span class="doc-step-num">3</span>
+          <div>
+            <strong>Apply filters</strong>
+            <p>Use the toolbar below the search bar to narrow results by modality, pricing, context length, capability, or provider.</p>
+          </div>
+        </li>
+        <li>
+          <span class="doc-step-num">4</span>
+          <div>
+            <strong>Open a model's detail page</strong>
+            <p>Click any card to open its full detail page, which shows pricing breakdown, capabilities, architecture info, and the complete list of hosting providers with uptime statistics.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ── Filters ───────────────────────────────────── -->
+    <section id="filters" class="doc-section">
+      <h2 class="doc-section-title">
+        <cds-icon shape="filter-2" size="md"></cds-icon> Filters &amp; Search
+      </h2>
+      <p>The sticky toolbar gives you six independent ways to narrow down models. All filters stack — results shown satisfy every active filter simultaneously.</p>
+
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th>Filter</th>
+            <th>What it does</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Search</strong></td>
+            <td>Full-text match on model name and ID</td>
+            <td>Free text</td>
+          </tr>
+          <tr>
+            <td><strong>Modality</strong></td>
+            <td>Filter by input/output type</td>
+            <td>text→text, image→text, text→image, audio→text, …</td>
+          </tr>
+          <tr>
+            <td><strong>Pricing</strong></td>
+            <td>Show only free or paid models</td>
+            <td>All / Free / Paid</td>
+          </tr>
+          <tr>
+            <td><strong>Context window</strong></td>
+            <td>Minimum token context length</td>
+            <td>Any / 32k+ / 64k+ / 128k+ / 200k+</td>
+          </tr>
+          <tr>
+            <td><strong>Capabilities</strong></td>
+            <td>Multi-select — show models that support all selected capabilities</td>
+            <td>Tool Use, Vision, Web Search, Discount</td>
+          </tr>
+          <tr>
+            <td><strong>Provider</strong></td>
+            <td>Limit to models offered by a specific provider</td>
+            <td>All providers or any single provider slug</td>
+          </tr>
+          <tr>
+            <td><strong>Multi-provider</strong></td>
+            <td>Show only models hosted by more than one independent provider — useful for cost and reliability comparisons</td>
+            <td>Toggle on/off (lazy-loads endpoint counts)</td>
+          </tr>
+          <tr>
+            <td><strong>Sort</strong></td>
+            <td>Change result ordering</td>
+            <td>Newest, Name A–Z, Context ↑↓, Price ↑↓</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="doc-callout tip">
+        <cds-icon shape="lightbulb" size="sm"></cds-icon>
+        <span>Click <strong>Clear filters</strong> in the toolbar to reset everything instantly. Active filter count is shown in the button badge.</span>
+      </div>
+    </section>
+
+    <!-- ── Capabilities ──────────────────────────────── -->
+    <section id="capabilities" class="doc-section">
+      <h2 class="doc-section-title">
+        <cds-icon shape="tag" size="md"></cds-icon> Capability Badges
+      </h2>
+      <p>Each model card and detail page shows coloured capability chips. Here's what each one means:</p>
+
+      <div class="doc-capability-list">
+        <div class="doc-cap-row">
+          <span class="cap-pill tools">🔧 Tools</span>
+          <span>The model supports <strong>function calling / tool use</strong> — it can invoke external APIs, run code, or call structured functions defined in your prompt. Essential for agentic workflows.</span>
+        </div>
+        <div class="doc-cap-row">
+          <span class="cap-pill vision">👁 Vision</span>
+          <span>The model accepts <strong>image inputs</strong> alongside text. You can send screenshots, diagrams, or photos and ask questions about them.</span>
+        </div>
+        <div class="doc-cap-row">
+          <span class="cap-pill web">🌐 Web</span>
+          <span>The model has <strong>live web search</strong> access — it can retrieve up-to-date information from the internet at inference time instead of relying solely on its training data.</span>
+        </div>
+        <div class="doc-cap-row">
+          <span class="cap-pill discount">💸 Discount</span>
+          <span>The model is flagged as having <strong>discounted pricing</strong> on OpenRouter — typically promotional or batch rates significantly below standard tier.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Model Detail ──────────────────────────────── -->
+    <section id="model-detail" class="doc-section">
+      <h2 class="doc-section-title">
+        <cds-icon shape="info-standard" size="md"></cds-icon> Model Detail Page
+      </h2>
+      <p>Click any model card to open its dedicated detail page. It contains five information panels:</p>
+
+      <div class="doc-panel-list">
+        <div class="doc-panel-item">
+          <div class="doc-panel-label">Hero header</div>
+          <div>Provider logo, model name, modality, release date, and a strip of key statistics — context window, pricing per million tokens (input &amp; output), max output tokens.</div>
+        </div>
+        <div class="doc-panel-item">
+          <div class="doc-panel-label">Capabilities</div>
+          <div>All supported capabilities with visual badges and explanatory tooltips (hover the <span class="inline-tip">ⓘ</span> icons).</div>
+        </div>
+        <div class="doc-panel-item">
+          <div class="doc-panel-label">Architecture</div>
+          <div>Modality, tokenizer type, instruction following type, and quantisation details where available.</div>
+        </div>
+        <div class="doc-panel-item">
+          <div class="doc-panel-label">Description</div>
+          <div>The model's official description from the provider, rendered in full.</div>
+        </div>
+        <div class="doc-panel-item">
+          <div class="doc-panel-label">Provider endpoints</div>
+          <div>Every OpenRouter endpoint hosting this model — with its provider logo, context limit, max output, input price, output price, and 30-minute &amp; 24-hour uptime percentages colour-coded green/yellow/red.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Providers ─────────────────────────────────── -->
+    <section id="providers" class="doc-section">
+      <h2 class="doc-section-title">
+        <cds-icon shape="organization" size="md"></cds-icon> Providers
+      </h2>
+      <p>OpenRouter aggregates models from <strong>60+ providers</strong>. Provider logos are resolved automatically using the <a href="https://logo.dev" target="_blank" rel="noopener">logo.dev</a> brand logo API with Google Favicons as a fallback, and a deterministic coloured-initial avatar as a final fallback — so every provider always has a visual identity.</p>
+
+      <p>The <strong>Multi-provider toggle</strong> in the filter bar lazy-loads endpoint counts for all models (up to 10 concurrent requests) and then filters to only models available from more than one provider. This is valuable when:</p>
+      <ul class="doc-list">
+        <li>You want pricing competition — different providers charge different rates for the same model.</li>
+        <li>You need reliability redundancy — if one provider is down, another can serve the same model.</li>
+        <li>You are evaluating SLA options — uptime percentages differ across providers.</li>
+      </ul>
+    </section>
+
+    <!-- ── Use Cases ─────────────────────────────────── -->
+    <section id="use-cases" class="doc-section">
+      <h2 class="doc-section-title">
+        <cds-icon shape="lightbulb" size="md"></cds-icon> Use Cases
+      </h2>
+
+      <div class="doc-usecase-grid">
+        <div class="doc-usecase-card">
+          <h3>🎓 Research &amp; Academia</h3>
+          <p>Identify models with large context windows (128k+) for long-document analysis. Filter by Vision to find multimodal models for image-based research tasks.</p>
+        </div>
+        <div class="doc-usecase-card">
+          <h3>💼 Enterprise Procurement</h3>
+          <p>Compare pricing across providers for the same model. Use the Multi-provider filter to identify models with redundant hosting for high-availability requirements.</p>
+        </div>
+        <div class="doc-usecase-card">
+          <h3>⚙️ Developer Integration</h3>
+          <p>Filter by Tool Use to find models suitable for agentic pipelines and function-calling workflows. Check endpoint uptime before committing to a provider.</p>
+        </div>
+        <div class="doc-usecase-card">
+          <h3>💡 Cost Optimisation</h3>
+          <p>Filter by Free or Discount pricing to find cost-effective alternatives. Sort by price ascending to surface the cheapest options for a given capability set.</p>
+        </div>
+        <div class="doc-usecase-card">
+          <h3>🌐 Real-time Applications</h3>
+          <p>Filter by Web Search capability to find models that can access live information — ideal for news summarisation, market research, or up-to-date Q&amp;A.</p>
+        </div>
+        <div class="doc-usecase-card">
+          <h3>🔍 Model Benchmarking</h3>
+          <p>Use the Latest Additions sidebar to track newly released models. Open their detail pages to compare architecture, context, and pricing before running evaluations.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FAQ ───────────────────────────────────────── -->
+    <section id="faq" class="doc-section">
+      <h2 class="doc-section-title">
+        <cds-icon shape="help-info" size="md"></cds-icon> FAQ
+      </h2>
+
+      <div class="doc-faq-list">
+        <details class="doc-faq-item">
+          <summary>Where does the data come from?</summary>
+          <p>All model data is fetched live from the <a href="https://openrouter.ai/api/v1/models" target="_blank" rel="noopener">OpenRouter <code>/api/v1/models</code></a> endpoint. Provider endpoint details (pricing, uptime, context) come from <code>/api/v1/models/:id/endpoints</code>.</p>
+        </details>
+        <details class="doc-faq-item">
+          <summary>Do I need an API key to use this catalog?</summary>
+          <p>No. The catalog only reads public OpenRouter metadata endpoints that do not require authentication. No API key is stored or transmitted.</p>
+        </details>
+        <details class="doc-faq-item">
+          <summary>Why does the Multi-provider toggle take a few seconds to load?</summary>
+          <p>The main model list doesn't include per-model endpoint counts. When you enable Multi-provider mode, the app fetches the endpoint detail for every model (up to 10 requests in parallel) to determine how many providers host each one. This is a one-time load per session.</p>
+        </details>
+        <details class="doc-faq-item">
+          <summary>What does the context window number mean?</summary>
+          <p>Context window (measured in tokens) is the maximum amount of text — both your input <em>and</em> the model's output — that the model can process in a single call. Larger context windows are needed for long documents, codebases, or extended conversations. ~750 words ≈ 1 000 tokens.</p>
+        </details>
+        <details class="doc-faq-item">
+          <summary>What is a "provider" vs. a "model"?</summary>
+          <p>A <strong>model</strong> is the AI (e.g. <em>Meta Llama 4 Maverick</em>). A <strong>provider</strong> is the company hosting and serving that model via an API (e.g. Fireworks, Together, Groq). Multiple providers can host the same model, often at different prices and with different uptime SLAs.</p>
+        </details>
+        <details class="doc-faq-item">
+          <summary>How is pricing displayed?</summary>
+          <p>Input and output prices are shown in <strong>USD per million tokens</strong>. A price of <code>$0.00</code> means the model is currently free on that provider endpoint. Prices are sourced directly from OpenRouter and may change without notice.</p>
+        </details>
+        <details class="doc-faq-item">
+          <summary>Can I link directly to a model?</summary>
+          <p>Yes — the app uses hash routing. Every model detail page has a stable URL in the format <code>/#/model-id/here</code> that you can bookmark or share.</p>
+        </details>
+      </div>
+    </section>
+
+    <footer class="doc-footer">
+      <p>Built for ASU · Data sourced from <a href="https://openrouter.ai" target="_blank" rel="noopener">OpenRouter</a> · Last updated April 2026</p>
+    </footer>
+
+  </article>
+</div>
