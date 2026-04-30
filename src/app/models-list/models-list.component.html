@@ -208,21 +208,21 @@
 
             <!-- Capability pill badges -->
             <div class="cap-badges">
-              <span class="cap-badge cap-tools tooltip tooltip-sm tooltip-bottom-right" role="tooltip" aria-haspopup="true" *ngIf="hasTools(m)">
+              <span class="cap-badge cap-tools" *ngIf="hasTools(m)">
                 <cds-icon shape="cog" size="xs"></cds-icon>Tool Use
-                <span class="tooltip-content">Supports function calling and structured tool use — essential for agentic workflows and API integrations.</span>
+                <span class="info-tip" data-tip="Supports function calling and structured tool use — essential for agentic workflows and API integrations.">ⓘ</span>
               </span>
-              <span class="cap-badge cap-vision tooltip tooltip-sm tooltip-bottom-right" role="tooltip" aria-haspopup="true" *ngIf="hasVision(m)">
+              <span class="cap-badge cap-vision" *ngIf="hasVision(m)">
                 <cds-icon shape="image" size="xs"></cds-icon>Vision
-                <span class="tooltip-content">Accepts image inputs alongside text — required for document analysis, visual QA, or multimodal pipelines.</span>
+                <span class="info-tip" data-tip="Accepts image inputs alongside text — required for document analysis, visual QA, or multimodal pipelines.">ⓘ</span>
               </span>
-              <span class="cap-badge cap-web tooltip tooltip-sm tooltip-bottom-right" role="tooltip" aria-haspopup="true" *ngIf="hasWebSearch(m)">
+              <span class="cap-badge cap-web" *ngIf="hasWebSearch(m)">
                 <cds-icon shape="world" size="xs"></cds-icon>Web Search
-                <span class="tooltip-content">Can perform live web searches to ground responses in up-to-date information — reduces hallucinations for current-events queries.</span>
+                <span class="info-tip" data-tip="Can perform live web searches to ground responses in current information — reduces hallucinations on current-events queries.">ⓘ</span>
               </span>
-              <span class="cap-badge cap-discount tooltip tooltip-sm tooltip-bottom-right" role="tooltip" aria-haspopup="true" *ngIf="hasDiscount(m)">
+              <span class="cap-badge cap-discount" *ngIf="hasDiscount(m)">
                 <cds-icon shape="tag" size="xs"></cds-icon>{{ getDiscountPct(m) }}
-                <span class="tooltip-content">Temporary promotional discount applied to listed rates. Verify current pricing before finalising procurement budgets.</span>
+                <span class="info-tip" data-tip="Temporary promotional discount on listed rates. Verify before finalising procurement budgets.">ⓘ</span>
               </span>
             </div>
           </div>

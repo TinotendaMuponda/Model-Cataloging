@@ -661,20 +661,3 @@
   color: #7a5c00;
   border: 1px solid #f5d87a;
 }
-
-/* ── Capability badge tooltips ────────────────────────── */
-/* Clarity tooltip needs position:relative on the trigger */
-.cap-badge.tooltip {
-  position: relative;
-  cursor: help;
-}
-
-.cap-badge.tooltip .tooltip-content {
-  font-size: 0.76rem;
-  line-height: 1.4;
-  min-width: 210px;
-  max-width: 270px;
-  white-space: normal;
-  /* ensure tooltip appears above the card click zone */
-  z-index: 999;
-}
