@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModelsService, ModelInfo } from '../models.service';
 
@@ -142,11 +142,6 @@ export class ModelsListComponent implements OnInit {
   }
 
   constructor(private modelsService: ModelsService, private router: Router) {}
-
-  @HostListener('document:click')
-  onDocClick(): void {
-    this.providerDropdownOpen = false;
-  }
 
   ngOnInit(): void {
     this.modelsService.listModels().subscribe({

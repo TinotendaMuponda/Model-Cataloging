@@ -128,6 +128,7 @@
           <cds-icon shape="organization" size="sm"></cds-icon>Provider
         </span>
         <div class="provider-dropdown" [class.open]="providerDropdownOpen" (click)="$event.stopPropagation()">
+          <div class="dd-backdrop" *ngIf="providerDropdownOpen" (click)="providerDropdownOpen = false"></div>
           <button class="provider-dd-trigger" (click)="providerDropdownOpen = !providerDropdownOpen" type="button">
             <app-provider-logo *ngIf="selectedProvider" [provider]="selectedProvider" [size]="16"></app-provider-logo>
             <span>{{ selectedProvider || 'All providers' }}</span>

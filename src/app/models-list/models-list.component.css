@@ -310,6 +310,13 @@
   min-width: 158px;
 }
 
+.dd-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: transparent;
+}
+
 .provider-dd-trigger {
   display: flex;
   align-items: center;
