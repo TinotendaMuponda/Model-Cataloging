@@ -55,3 +55,14 @@ html, body {
   flex-direction: column;
   overflow: hidden;
 }
+
+/* Angular inserts routed components as siblings of router-outlet inside main.
+   Give them flex: 1 so they stretch to fill the fixed container. */
+app-models-list,
+app-model-detail {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
