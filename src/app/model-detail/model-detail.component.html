@@ -25,6 +25,7 @@
   <div class="card hero-card">
     <div class="card-header hero-header">
       <div class="hero-title-row">
+        <app-provider-logo [provider]="model.id.split('/')[0]" [size]="36"></app-provider-logo>
         <h1 class="model-title">{{ model.name || model.id }}</h1>
         <span class="label label-purple" *ngIf="model.architecture?.modality">
           <cds-icon shape="tag" size="sm" style="margin-right:2px; vertical-align:middle;"></cds-icon>
@@ -209,6 +210,7 @@
         <tbody>
           <tr *ngFor="let ep of endpoints">
             <td class="provider-cell">
+              <app-provider-logo [provider]="ep.provider_name?.toLowerCase()" [size]="20"></app-provider-logo>
               <strong>{{ ep.provider_name }}</strong>
               <span *ngIf="ep.tag" class="label label-light tag-chip">{{ ep.tag }}</span>
             </td>

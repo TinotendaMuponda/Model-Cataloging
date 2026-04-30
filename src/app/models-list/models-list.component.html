@@ -183,7 +183,10 @@
             <span class="recent-rank">{{ i + 1 }}</span>
             <div class="recent-body">
               <div class="recent-name">{{ m.name || m.id }}</div>
-              <div class="recent-provider">{{ m.id.split('/')[0] }}</div>
+              <div class="recent-provider">
+                <app-provider-logo [provider]="m.id.split('/')[0]" [size]="16"></app-provider-logo>
+                <span>{{ m.id.split('/')[0] }}</span>
+              </div>
               <div class="recent-meta">
                 <span class="recent-date">
                   <cds-icon shape="calendar" size="xs" style="vertical-align:middle; margin-right:2px;"></cds-icon>
@@ -210,7 +213,8 @@
 
       <div class="cards-grid" *ngIf="models.length > 0">
         <div class="card model-card" *ngFor="let m of models" (click)="openDetail(m)" role="button" tabindex="0" (keyup.enter)="openDetail(m)">
-          <div class="card-header">
+          <div class="card-header card-header-row">
+            <app-provider-logo [provider]="m.id.split('/')[0]" [size]="28"></app-provider-logo>
             <span class="model-name">{{ m.name || m.id }}</span>
             <div class="badge-group">
               <span class="label label-purple modality-badge" *ngIf="m.architecture?.modality">
