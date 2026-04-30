@@ -8,7 +8,9 @@
 <div *ngIf="!loading && error" class="alert alert-danger" role="alert">
   <div class="alert-items">
     <div class="alert-item static">
-      <div class="alert-icon-wrapper"></div>
+      <div class="alert-icon-wrapper">
+        <cds-icon class="alert-icon" shape="warning-standard"></cds-icon>
+      </div>
       <span class="alert-text">Failed to load models. Please check your network connection.</span>
     </div>
   </div>
@@ -18,18 +20,25 @@
 <div *ngIf="!loading && !error">
   <!-- Search bar -->
   <div class="search-bar">
-    <input
-      type="text"
-      [(ngModel)]="searchQuery"
-      (input)="onSearch(searchQuery)"
-      placeholder="Search by name, ID or description..."
-      class="clr-input search-input"
-    />
-    <span class="label label-info model-count">{{ models.length }} models</span>
+    <div class="search-input-wrapper">
+      <cds-icon shape="search" class="search-icon"></cds-icon>
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (input)="onSearch(searchQuery)"
+        placeholder="Search by name, ID or description..."
+        class="clr-input search-input"
+      />
+    </div>
+    <span class="label label-info model-count">
+      
+      {{ models.length }} models
+    </span>
   </div>
 
   <!-- No results -->
   <div *ngIf="models.length === 0" class="no-results">
+    <cds-icon shape="info-standard" size="xl" style="color:#888; display:block; margin-bottom:0.5rem;"></cds-icon>
     <p>No models match your search.</p>
   </div>
 
@@ -39,6 +48,7 @@
       <div class="card-header">
         <span class="model-name">{{ m.name || m.id }}</span>
         <span class="label label-purple modality-badge" *ngIf="m.architecture?.modality">
+          <cds-icon shape="tag" size="sm" style="margin-right:2px; vertical-align:middle;"></cds-icon>
           {{ m.architecture?.modality }}
         </span>
       </div>
@@ -49,12 +59,15 @@
       <div class="card-footer">
         <div class="meta-row">
           <span class="meta-item">
+            <cds-icon shape="layers" size="sm" style="vertical-align:middle; margin-right:3px; color:#0073b9;"></cds-icon>
             <strong>Context:</strong> {{ formatContext(m.context_length) }}
           </span>
           <span class="meta-item">
+            <cds-icon shape="dollar" size="sm" style="vertical-align:middle; margin-right:3px; color:#1a6e0a;"></cds-icon>
             <strong>Input:</strong> {{ formatPrice(m.pricing?.prompt) }}
           </span>
           <span class="meta-item">
+            <cds-icon shape="dollar" size="sm" style="vertical-align:middle; margin-right:3px; color:#1a6e0a;"></cds-icon>
             <strong>Output:</strong> {{ formatPrice(m.pricing?.completion) }}
           </span>
         </div>

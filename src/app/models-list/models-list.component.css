@@ -15,11 +15,26 @@
   flex-wrap: wrap;
 }
 
-.search-input {
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
   flex: 1;
   min-width: 200px;
   max-width: 480px;
-  padding: 0.4rem 0.75rem;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.6rem;
+  color: #888;
+  pointer-events: none;
+  --color: #888;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.4rem 0.75rem 0.4rem 2rem;
   border: 1px solid #ccc;
   border-radius: 3px;
   font-size: 0.9rem;
