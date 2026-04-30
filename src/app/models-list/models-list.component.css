@@ -417,3 +417,126 @@
     order: -1;
   }
 }
+
+/* ── Filter panel ─────────────────────────────────────── */
+.filter-panel {
+  background: #fff;
+  border: 1px solid #e2e6ea;
+  border-radius: 3px;
+  padding: 0.6rem 0.9rem;
+  margin-bottom: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #565656;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  min-width: 76px;
+}
+
+/* ── Chip group ───────────────────────────────────────── */
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 1.5rem;
+  padding: 0 0.65rem;
+  border: 1px solid #ccd2d9;
+  border-radius: 2px;
+  background: #f4f6f8;
+  color: #565656;
+  font-size: 0.78rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.filter-chip:hover {
+  background: #e8f4fb;
+  border-color: #0073b9;
+  color: #0073b9;
+}
+
+.filter-chip.active {
+  background: #0073b9;
+  border-color: #0073b9;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ── Sort + provider select ───────────────────────────── */
+.filter-select-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.filter-select-icon {
+  position: absolute;
+  left: 0.45rem;
+  pointer-events: none;
+  color: #737373;
+  --color: #737373;
+}
+
+.filter-select {
+  height: 1.6rem;
+  padding: 0 1.4rem 0 1.6rem;
+  border: 1px solid #ccd2d9;
+  border-radius: 2px;
+  background: #f4f6f8;
+  color: #1a2332;
+  font-size: 0.8rem;
+  font-family: inherit;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.12s;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #0073b9;
+  box-shadow: 0 0 0 2px rgba(0, 115, 185, 0.18);
+}
+
+/* When not inside .filter-select-wrap (standalone in search bar) */
+.search-bar .filter-select-wrap .filter-select {
+  padding-left: 1.8rem;
+}
+
+/* Clear filters button */
+.clear-filters-btn {
+  white-space: nowrap;
+  font-size: 0.78rem !important;
+  padding: 0 0.5rem !important;
+}
+
+@media (max-width: 768px) {
+  .filter-row {
+    align-items: flex-start;
+  }
+  .filter-label {
+    min-width: unset;
+    width: 100%;
+  }
+}

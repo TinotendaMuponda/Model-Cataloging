@@ -15,16 +15,67 @@ export class ModelsListComponent implements OnInit {
   error = false;
   searchQuery = '';
 
+  // ── Filter state ────────────────────────────────────────
+  selectedModality = '';
+  selectedPricing  = '';   // '' | 'free' | 'paid'
+  selectedContext  = '';   // '' | 'xs' | 'sm' | 'md' | 'lg'
+  selectedProvider = '';
+  sortBy           = 'default'; // 'default' | 'name' | 'newest' | 'context_asc' | 'context_desc' | 'price'
+
+  // ── Derived option lists ─────────────────────────────────
+  modalityOptions: string[] = [];
+  providerOptions: string[] = [];
+
+  readonly contextBuckets = [
+    { label: 'Any',      value: '' },
+    { label: '≤ 32K',    value: 'xs' },
+    { label: '32K–128K', value: 'sm' },
+    { label: '128K–1M',  value: 'md' },
+    { label: '1M +',     value: 'lg' },
+  ];
+
+  readonly sortOptions = [
+    { label: 'Default',            value: 'default' },
+    { label: 'Name A → Z',         value: 'name' },
+    { label: 'Newest first',        value: 'newest' },
+    { label: 'Context (high → low)',value: 'context_desc' },
+    { label: 'Context (low → high)',value: 'context_asc' },
+    { label: 'Price (low → high)',  value: 'price' },
+  ];
+
+  get activeFilterCount(): number {
+    return [
+      this.selectedModality,
+      this.selectedPricing,
+      this.selectedContext,
+      this.selectedProvider,
+      this.sortBy !== 'default' ? this.sortBy : '',
+    ].filter(Boolean).length;
+  }
+
   constructor(private modelsService: ModelsService, private router: Router) {}
 
   ngOnInit(): void {
     this.modelsService.listModels().subscribe({
       next: list => {
         this.allModels = list;
-        this.models = list;
+
+        // Build option lists from live data
+        const modSet = new Set<string>();
+        const provSet = new Set<string>();
+        for (const m of list) {
+          if (m.architecture?.modality) modSet.add(m.architecture.modality);
+          const prov = m.id.split('/')[0];
+          if (prov) provSet.add(prov);
+        }
+        this.modalityOptions = Array.from(modSet).sort();
+        this.providerOptions  = Array.from(provSet).sort();
+
         this.recentlyAdded = list
           .filter(m => this.isRecentlyAdded(m.created))
           .sort((a, b) => (b.created ?? 0) - (a.created ?? 0));
+
+        this.applyFilters();
         this.loading = false;
       },
       error: () => {
@@ -35,12 +86,70 @@ export class ModelsListComponent implements OnInit {
   }
 
   onSearch(query: string): void {
-    const q = query.toLowerCase();
-    this.models = this.allModels.filter(m =>
-      (m.name || m.id).toLowerCase().includes(q) ||
-      (m.description || '').toLowerCase().includes(q) ||
-      (m.id || '').toLowerCase().includes(q)
-    );
+    this.applyFilters();
+  }
+
+  applyFilters(): void {
+    const q = this.searchQuery.toLowerCase();
+
+    let result = this.allModels.filter(m => {
+      // Text search
+      if (q && !(
+        (m.name || m.id).toLowerCase().includes(q) ||
+        (m.description || '').toLowerCase().includes(q) ||
+        (m.id || '').toLowerCase().includes(q)
+      )) return false;
+
+      // Modality
+      if (this.selectedModality && m.architecture?.modality !== this.selectedModality) return false;
+
+      // Pricing
+      if (this.selectedPricing === 'free' && m.pricing?.prompt !== '0') return false;
+      if (this.selectedPricing === 'paid'  && m.pricing?.prompt === '0') return false;
+
+      // Context window
+      const ctx = m.context_length ?? 0;
+      if (this.selectedContext === 'xs' && !(ctx > 0 && ctx <= 32_000)) return false;
+      if (this.selectedContext === 'sm' && !(ctx > 32_000 && ctx <= 128_000)) return false;
+      if (this.selectedContext === 'md' && !(ctx > 128_000 && ctx <= 1_000_000)) return false;
+      if (this.selectedContext === 'lg' && !(ctx > 1_000_000)) return false;
+
+      // Provider
+      if (this.selectedProvider && m.id.split('/')[0] !== this.selectedProvider) return false;
+
+      return true;
+    });
+
+    // Sort
+    switch (this.sortBy) {
+      case 'name':
+        result = result.sort((a, b) => (a.name || a.id).localeCompare(b.name || b.id));
+        break;
+      case 'newest':
+        result = result.sort((a, b) => (b.created ?? 0) - (a.created ?? 0));
+        break;
+      case 'context_desc':
+        result = result.sort((a, b) => (b.context_length ?? 0) - (a.context_length ?? 0));
+        break;
+      case 'context_asc':
+        result = result.sort((a, b) => (a.context_length ?? 0) - (b.context_length ?? 0));
+        break;
+      case 'price':
+        result = result.sort((a, b) => parseFloat(a.pricing?.prompt || '999') - parseFloat(b.pricing?.prompt || '999'));
+        break;
+    }
+
+    this.models = result;
+  }
+
+  clearFilters(): void {
+    this.selectedModality = '';
+    this.selectedPricing  = '';
+    this.selectedContext  = '';
+    this.selectedProvider = '';
+    this.sortBy           = 'default';
+    this.searchQuery      = '';
+    this.applyFilters();
   }
 
   formatPrice(price?: string): string {
