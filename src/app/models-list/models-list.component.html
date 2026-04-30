@@ -1,0 +1,64 @@
+<!-- Loading spinner -->
+<div *ngIf="loading" class="loading-overlay">
+  <span class="spinner spinner-lg"></span>
+  <p>Loading models...</p>
+</div>
+
+<!-- Error alert -->
+<div *ngIf="!loading && error" class="alert alert-danger" role="alert">
+  <div class="alert-items">
+    <div class="alert-item static">
+      <div class="alert-icon-wrapper"></div>
+      <span class="alert-text">Failed to load models. Please check your network connection.</span>
+    </div>
+  </div>
+</div>
+
+<!-- Content -->
+<div *ngIf="!loading && !error">
+  <!-- Search bar -->
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      (input)="onSearch(searchQuery)"
+      placeholder="Search by name, ID or description..."
+      class="clr-input search-input"
+    />
+    <span class="label label-info model-count">{{ models.length }} models</span>
+  </div>
+
+  <!-- No results -->
+  <div *ngIf="models.length === 0" class="no-results">
+    <p>No models match your search.</p>
+  </div>
+
+  <!-- Model cards grid -->
+  <div class="cards-grid" *ngIf="models.length > 0">
+    <div class="card model-card" *ngFor="let m of models" (click)="openDetail(m)" role="button" tabindex="0" (keyup.enter)="openDetail(m)">
+      <div class="card-header">
+        <span class="model-name">{{ m.name || m.id }}</span>
+        <span class="label label-purple modality-badge" *ngIf="m.architecture?.modality">
+          {{ m.architecture?.modality }}
+        </span>
+      </div>
+      <div class="card-block">
+        <p class="model-id clr-form-control-label">{{ m.id }}</p>
+        <p class="model-description" *ngIf="m.description">{{ m.description | slice:0:200 }}{{ (m.description?.length ?? 0) > 200 ? '…' : '' }}</p>
+      </div>
+      <div class="card-footer">
+        <div class="meta-row">
+          <span class="meta-item">
+            <strong>Context:</strong> {{ formatContext(m.context_length) }}
+          </span>
+          <span class="meta-item">
+            <strong>Input:</strong> {{ formatPrice(m.pricing?.prompt) }}
+          </span>
+          <span class="meta-item">
+            <strong>Output:</strong> {{ formatPrice(m.pricing?.completion) }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
