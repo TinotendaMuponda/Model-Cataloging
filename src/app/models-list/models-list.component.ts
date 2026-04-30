@@ -22,7 +22,7 @@ export class ModelsListComponent implements OnInit {
   selectedProvider   = '';
   selectedCapability = '';   // '' | 'tools' | 'vision' | 'caching' | 'web_search'
   sortBy             = 'default';
-  filtersOpen        = true;
+  filtersOpen        = false;
 
   // ── Derived option lists ─────────────────────────────────
   modalityOptions: string[] = [];
