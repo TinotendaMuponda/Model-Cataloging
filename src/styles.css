@@ -2,10 +2,10 @@
 html, body {
   height: 100%;
   margin: 0;
+  overflow: hidden;
   font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
   background: #f4f6f8;
   color: #1a2332;
-  scroll-behavior: smooth;
 }
 
 .app-header {
@@ -39,7 +39,12 @@ html, body {
 }
 
 .content-container {
-  padding: 1.25rem 1.5rem;
+  height: calc(100vh - 48px);
+  box-sizing: border-box;
+  padding: 1.25rem 1.5rem 0;
   max-width: 1600px;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
