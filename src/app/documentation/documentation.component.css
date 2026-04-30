@@ -17,6 +17,11 @@
   top: calc(48px + 1.5rem);
 }
 
+.doc-sidebar-inner {
+  border-right: 1px solid #e4e9ee;
+  padding-right: 0.75rem;
+}
+
 .doc-sidebar-heading {
   font-size: 0.68rem;
   font-weight: 700;

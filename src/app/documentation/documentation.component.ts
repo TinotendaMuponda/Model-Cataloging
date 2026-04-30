@@ -11,7 +11,7 @@ export class DocumentationComponent {
   sections = [
     { id: 'overview',        label: 'Overview',          icon: 'details'         },
     { id: 'getting-started', label: 'Getting Started',   icon: 'step-forward-2'  },
-    { id: 'filters',         label: 'Filters & Search',  icon: 'search'          },
+    { id: 'filters',         label: 'Filters & Search',  icon: 'filter'          },
     { id: 'capabilities',    label: 'Capability Badges', icon: 'tag'             },
     { id: 'model-detail',    label: 'Model Detail Page', icon: 'info-standard'   },
     { id: 'providers',       label: 'Providers',         icon: 'organization'    },
