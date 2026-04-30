@@ -16,12 +16,13 @@ export class ModelsListComponent implements OnInit {
   searchQuery = '';
 
   // ── Filter state ────────────────────────────────────────
-  selectedModality = '';
-  selectedPricing  = '';   // '' | 'free' | 'paid'
-  selectedContext  = '';   // '' | 'xs' | 'sm' | 'md' | 'lg'
-  selectedProvider = '';
-  sortBy           = 'default'; // 'default' | 'name' | 'newest' | 'context_asc' | 'context_desc' | 'price'
-  filtersOpen      = true;
+  selectedModality   = '';
+  selectedPricing    = '';   // '' | 'free' | 'paid'
+  selectedContext    = '';   // '' | 'xs' | 'sm' | 'md' | 'lg'
+  selectedProvider   = '';
+  selectedCapability = '';   // '' | 'tools' | 'vision' | 'caching' | 'web_search'
+  sortBy             = 'default';
+  filtersOpen        = true;
 
   // ── Derived option lists ─────────────────────────────────
   modalityOptions: string[] = [];
@@ -32,16 +33,23 @@ export class ModelsListComponent implements OnInit {
     { label: '≤ 32K',    value: 'xs' },
     { label: '32K–128K', value: 'sm' },
     { label: '128K–1M',  value: 'md' },
-    { label: '1M +',     value: 'lg' },
+    { label: '1M+',      value: 'lg' },
+  ];
+
+  readonly capabilityOptions = [
+    { label: 'All',        value: '',           icon: '' },
+    { label: 'Tool Use',   value: 'tools',      icon: 'cog' },
+    { label: 'Vision',     value: 'vision',     icon: 'image' },
+    { label: 'Web Search', value: 'web_search', icon: 'world' },
   ];
 
   readonly sortOptions = [
-    { label: 'Default',            value: 'default' },
-    { label: 'Name A → Z',         value: 'name' },
-    { label: 'Newest first',        value: 'newest' },
-    { label: 'Context (high → low)',value: 'context_desc' },
-    { label: 'Context (low → high)',value: 'context_asc' },
-    { label: 'Price (low → high)',  value: 'price' },
+    { label: 'Default',             value: 'default' },
+    { label: 'Name A → Z',          value: 'name' },
+    { label: 'Newest first',         value: 'newest' },
+    { label: 'Context (high → low)', value: 'context_desc' },
+    { label: 'Context (low → high)', value: 'context_asc' },
+    { label: 'Price (low → high)',   value: 'price' },
   ];
 
   get activeFilterCount(): number {
@@ -50,8 +58,38 @@ export class ModelsListComponent implements OnInit {
       this.selectedPricing,
       this.selectedContext,
       this.selectedProvider,
+      this.selectedCapability,
       this.sortBy !== 'default' ? this.sortBy : '',
     ].filter(Boolean).length;
+  }
+
+  // ── Capability helpers ───────────────────────────────────
+  hasTools(m: ModelInfo): boolean {
+    return (m.supported_parameters ?? []).some(p =>
+      p === 'tools' || p === 'tool_choice');
+  }
+
+  hasVision(m: ModelInfo): boolean {
+    const mod = m.architecture?.modality ?? '';
+    const inputs = m.architecture?.input_modalities ?? [];
+    return mod.includes('image') || inputs.includes('image');
+  }
+
+  hasWebSearch(m: ModelInfo): boolean {
+    return !!(m.pricing?.web_search);
+  }
+
+  isFree(m: ModelInfo): boolean {
+    return m.pricing?.prompt === '0';
+  }
+
+  hasDiscount(m: ModelInfo): boolean {
+    return !!(m.pricing?.discount && m.pricing.discount < 1);
+  }
+
+  getDiscountPct(m: ModelInfo): string {
+    if (!m.pricing?.discount) return '';
+    return Math.round((1 - m.pricing.discount) * 100) + '% off';
   }
 
   constructor(private modelsService: ModelsService, private router: Router) {}
@@ -106,7 +144,7 @@ export class ModelsListComponent implements OnInit {
 
       // Pricing
       if (this.selectedPricing === 'free' && m.pricing?.prompt !== '0') return false;
-      if (this.selectedPricing === 'paid'  && m.pricing?.prompt === '0') return false;
+      if (this.selectedPricing === 'paid' && m.pricing?.prompt === '0') return false;
 
       // Context window
       const ctx = m.context_length ?? 0;
@@ -117,6 +155,11 @@ export class ModelsListComponent implements OnInit {
 
       // Provider
       if (this.selectedProvider && m.id.split('/')[0] !== this.selectedProvider) return false;
+
+      // Capability
+      if (this.selectedCapability === 'tools'      && !this.hasTools(m)) return false;
+      if (this.selectedCapability === 'vision'     && !this.hasVision(m)) return false;
+      if (this.selectedCapability === 'web_search' && !this.hasWebSearch(m)) return false;
 
       return true;
     });
@@ -144,12 +187,13 @@ export class ModelsListComponent implements OnInit {
   }
 
   clearFilters(): void {
-    this.selectedModality = '';
-    this.selectedPricing  = '';
-    this.selectedContext  = '';
-    this.selectedProvider = '';
-    this.sortBy           = 'default';
-    this.searchQuery      = '';
+    this.selectedModality   = '';
+    this.selectedPricing    = '';
+    this.selectedContext    = '';
+    this.selectedProvider   = '';
+    this.selectedCapability = '';
+    this.sortBy             = 'default';
+    this.searchQuery        = '';
     this.applyFilters();
   }
 

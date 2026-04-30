@@ -613,3 +613,51 @@
     margin-left: 0;
   }
 }
+
+/* ── Capability badges on cards ───────────────────────── */
+.cap-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.45rem;
+}
+
+.cap-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 100px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Tool Use — action blue */
+.cap-tools {
+  background: #e8f4fb;
+  color: #0073b9;
+  border: 1px solid #b3d9f0;
+}
+
+/* Vision — purple */
+.cap-vision {
+  background: #f0ecfb;
+  color: #5b4ea8;
+  border: 1px solid #cdc4f0;
+}
+
+/* Web Search — teal */
+.cap-web {
+  background: #e6f7f5;
+  color: #006a60;
+  border: 1px solid #9ed6d0;
+}
+
+/* Discount — gold */
+.cap-discount {
+  background: #fef9e7;
+  color: #7a5c00;
+  border: 1px solid #f5d87a;
+}

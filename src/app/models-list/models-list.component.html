@@ -104,6 +104,19 @@
         </div>
       </div>
 
+      <!-- Capabilities -->
+      <div class="filter-row">
+        <span class="filter-label">
+          <cds-icon shape="bolt" size="xs"></cds-icon>Capability
+        </span>
+        <div class="chip-group">
+          <button class="filter-chip"
+                  *ngFor="let c of capabilityOptions"
+                  [class.active]="selectedCapability === c.value"
+                  (click)="selectedCapability = c.value; applyFilters()">{{ c.label }}</button>
+        </div>
+      </div>
+
       <!-- Provider + Sort on the same row -->
       <div class="filter-row">
         <span class="filter-label">
@@ -184,28 +197,49 @@
             <span class="model-name">{{ m.name || m.id }}</span>
             <div class="badge-group">
               <span class="label label-purple modality-badge" *ngIf="m.architecture?.modality">
-                <cds-icon shape="tag" size="sm" style="margin-right:2px; vertical-align:middle;"></cds-icon>
                 {{ m.architecture?.modality }}
               </span>
             </div>
           </div>
+
           <div class="card-block">
             <p class="model-id clr-form-control-label">{{ m.id }}</p>
-            <p class="model-description" *ngIf="m.description">{{ m.description | slice:0:200 }}{{ (m.description?.length ?? 0) > 200 ? '…' : '' }}</p>
+            <p class="model-description" *ngIf="m.description">{{ m.description | slice:0:160 }}{{ (m.description?.length ?? 0) > 160 ? '…' : '' }}</p>
+
+            <!-- Capability pill badges -->
+            <div class="cap-badges">
+              <span class="cap-badge cap-tools" *ngIf="hasTools(m)">
+                <cds-icon shape="cog" size="xs"></cds-icon>Tool Use
+              </span>
+              <span class="cap-badge cap-vision" *ngIf="hasVision(m)">
+                <cds-icon shape="image" size="xs"></cds-icon>Vision
+              </span>
+              <span class="cap-badge cap-web" *ngIf="hasWebSearch(m)">
+                <cds-icon shape="world" size="xs"></cds-icon>Web Search
+              </span>
+              <span class="cap-badge cap-discount" *ngIf="hasDiscount(m)">
+                <cds-icon shape="tag" size="xs"></cds-icon>{{ getDiscountPct(m) }}
+              </span>
+            </div>
           </div>
+
           <div class="card-footer">
             <div class="meta-row">
               <span class="meta-item">
                 <cds-icon shape="layers" size="sm" style="vertical-align:middle; margin-right:3px; color:#0073b9;"></cds-icon>
-                <strong>Context:</strong> {{ formatContext(m.context_length) }}
+                <strong>Ctx:</strong>&nbsp;{{ formatContext(m.context_length) }}
               </span>
               <span class="meta-item">
                 <cds-icon shape="dollar" size="sm" style="vertical-align:middle; margin-right:3px; color:#1a6e0a;"></cds-icon>
-                <strong>Input:</strong> {{ formatPrice(m.pricing?.prompt) }}
+                <strong>In:</strong>&nbsp;{{ formatPrice(m.pricing?.prompt) }}
               </span>
               <span class="meta-item">
                 <cds-icon shape="dollar" size="sm" style="vertical-align:middle; margin-right:3px; color:#1a6e0a;"></cds-icon>
-                <strong>Output:</strong> {{ formatPrice(m.pricing?.completion) }}
+                <strong>Out:</strong>&nbsp;{{ formatPrice(m.pricing?.completion) }}
+              </span>
+              <span class="meta-item" *ngIf="m.pricing?.image">
+                <cds-icon shape="image" size="sm" style="vertical-align:middle; margin-right:3px; color:#5b4ea8;"></cds-icon>
+                <strong>Img:</strong>&nbsp;{{ formatPrice(m.pricing?.image) }}
               </span>
             </div>
           </div>

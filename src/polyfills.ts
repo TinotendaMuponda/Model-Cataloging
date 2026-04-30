@@ -27,6 +27,8 @@ import { filterIcon } from '@cds/core/icon/shapes/filter.js';
 import { timesCircleIcon } from '@cds/core/icon/shapes/times-circle.js';
 import { organizationIcon } from '@cds/core/icon/shapes/organization.js';
 import { sortByIcon } from '@cds/core/icon/shapes/sort-by.js';
+import { imageIcon } from '@cds/core/icon/shapes/image.js';
+import { worldIcon } from '@cds/core/icon/shapes/world.js';
 
 ClarityIcons.addIcons(
   searchIcon,
@@ -53,4 +55,6 @@ ClarityIcons.addIcons(
   timesCircleIcon,
   organizationIcon,
   sortByIcon,
+  imageIcon,
+  worldIcon,
 );

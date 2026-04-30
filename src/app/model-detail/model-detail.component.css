@@ -308,6 +308,24 @@
 .uptime-warn { color: #b55f00; font-weight: 700; }
 .uptime-bad  { color: #c21d03; font-weight: 700; }
 
+/* Latency / throughput colouring */
+.perf-good { color: #1a6e0a; font-weight: 600; }
+.perf-warn { color: #b55f00; font-weight: 600; }
+.perf-bad  { color: #c21d03; font-weight: 600; }
+
+/* Caching indicator */
+.caching-yes {
+  display: inline-flex;
+  align-items: center;
+  color: #1a6e0a;
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+.caching-no {
+  color: #9a9a9a;
+  font-size: 0.82rem;
+}
+
 /* Status badges */
 .status-ok {
   display: inline-flex;
@@ -325,6 +343,47 @@
   color: #b55f00;
   font-weight: 600;
   font-size: 0.82rem;
+}
+
+/* ── Hero provider summary strip ─────────────────────── */
+.hero-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.9rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.summary-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  padding: 2px 10px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+}
+
+.summary-chip strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ── Discount badge ───────────────────────────────────── */
+.discount-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #fef9e7;
+  color: #7a5c00;
+  border: 1px solid #f5d87a;
+  border-radius: 100px;
+  padding: 1px 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
 }
 
 /* ── Responsive ───────────────────────────────────────── */

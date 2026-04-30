@@ -36,6 +36,28 @@
         <cds-icon shape="calendar" size="sm" style="margin-right:3px; vertical-align:middle; opacity:0.8;"></cds-icon>
         Released: {{ formatDate(model.created) }}
       </p>
+
+      <!-- Provider summary strip -->
+      <div class="hero-summary" *ngIf="endpoints.length > 0">
+        <span class="summary-chip">
+          <cds-icon shape="rack-server" size="xs"></cds-icon>
+          {{ providerCount }} provider{{ providerCount !== 1 ? 's' : '' }}
+        </span>
+        <span class="summary-chip" *ngIf="cheapestProvider">
+          <cds-icon shape="dollar" size="xs"></cds-icon>
+          Cheapest: <strong>{{ cheapestProvider.provider_name }}</strong>
+        </span>
+        <span class="summary-chip" *ngIf="bestUptimeProvider">
+          <cds-icon shape="check-circle" size="xs"></cds-icon>
+          Best uptime: <strong>{{ bestUptimeProvider.provider_name }}</strong>
+          ({{ bestUptimeProvider.uptime_last_1d | number:'1.1-1' }}%)
+        </span>
+        <span class="summary-chip" *ngIf="fastestProvider">
+          <cds-icon shape="bolt" size="xs"></cds-icon>
+          Fastest: <strong>{{ fastestProvider.provider_name }}</strong>
+          ({{ formatLatency(fastestProvider.latency_last_30m) }})
+        </span>
+      </div>
     </div>
 
     <div class="card-block description-block" *ngIf="model.description">
@@ -104,12 +126,21 @@
               <td class="price-value">{{ formatPrice(model.pricing?.completion) }}</td>
             </tr>
             <tr *ngIf="model.pricing?.image">
-              <td class="info-label">Image</td>
+              <td class="info-label">Image input</td>
               <td class="price-value">{{ formatPrice(model.pricing?.image) }}</td>
             </tr>
             <tr *ngIf="model.pricing?.web_search">
-              <td class="info-label">Web Search</td>
+              <td class="info-label">Web search</td>
               <td class="price-value">{{ formatPrice(model.pricing?.web_search) }}</td>
+            </tr>
+            <tr *ngIf="model.pricing?.discount && model.pricing!.discount! < 1">
+              <td class="info-label">Discount</td>
+              <td>
+                <span class="discount-badge">
+                  <cds-icon shape="tag" size="xs" style="margin-right:2px; vertical-align:middle;"></cds-icon>
+                  {{ getDiscountPct(model.pricing?.discount) }}
+                </span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -143,27 +174,15 @@
         <thead>
           <tr>
             <th>Provider</th>
-            <th>
-              <cds-icon shape="layers" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
-              Context
-            </th>
-            <th>Max Output</th>
-            <th>
-              <cds-icon shape="dollar" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
-              Input / M
-            </th>
-            <th>
-              <cds-icon shape="dollar" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
-              Output / M
-            </th>
-            <th>
-              <cds-icon shape="clock" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
-              Uptime 30m
-            </th>
-            <th>
-              <cds-icon shape="clock" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
-              Uptime 1d
-            </th>
+            <th>Context</th>
+            <th>Max Out</th>
+            <th>Input / M</th>
+            <th>Output / M</th>
+            <th>Uptime 30m</th>
+            <th>Uptime 1d</th>
+            <th>Latency</th>
+            <th>Throughput</th>
+            <th>Caching</th>
             <th>Quantization</th>
             <th>Status</th>
           </tr>
@@ -175,7 +194,7 @@
               <span *ngIf="ep.tag" class="label label-light tag-chip">{{ ep.tag }}</span>
             </td>
             <td>{{ formatContext(ep.context_length) }}</td>
-            <td>{{ ep.max_completion_tokens ? (ep.max_completion_tokens | number) : '-' }}</td>
+            <td>{{ ep.max_completion_tokens ? formatContext(ep.max_completion_tokens) : '-' }}</td>
             <td class="price-value">{{ formatPrice(ep.pricing?.prompt) }}</td>
             <td class="price-value">{{ formatPrice(ep.pricing?.completion) }}</td>
             <td>
@@ -188,15 +207,29 @@
                 {{ ep.uptime_last_1d != null ? (ep.uptime_last_1d | number:'1.1-1') + '%' : '-' }}
               </span>
             </td>
+            <td>
+              <span [class]="getLatencyClass(ep.latency_last_30m)">
+                {{ formatLatency(ep.latency_last_30m) }}
+              </span>
+            </td>
+            <td>
+              <span [class]="getThroughputClass(ep.throughput_last_30m)">
+                {{ formatThroughput(ep.throughput_last_30m) }}
+              </span>
+            </td>
+            <td>
+              <span *ngIf="ep.supports_implicit_caching" class="caching-yes">
+                <cds-icon shape="check-circle" size="sm" style="vertical-align:middle; margin-right:2px;"></cds-icon>Yes
+              </span>
+              <span *ngIf="!ep.supports_implicit_caching" class="caching-no">—</span>
+            </td>
             <td>{{ ep.quantization || '-' }}</td>
             <td>
               <span *ngIf="ep.status === 0" class="status-ok">
-                <cds-icon shape="check-circle" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
-                Online
+                <cds-icon shape="check-circle" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>Online
               </span>
               <span *ngIf="ep.status !== 0" class="status-warn">
-                <cds-icon shape="warning-standard" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
-                Degraded
+                <cds-icon shape="warning-standard" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>Degraded
               </span>
             </td>
           </tr>
