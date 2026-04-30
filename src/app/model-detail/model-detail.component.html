@@ -4,15 +4,22 @@
 </div>
 
 <div *ngIf="!loading && notFound" class="not-found">
+  <cds-icon shape="info-standard" size="xl" style="color:#888; display:block; margin-bottom:0.75rem;"></cds-icon>
   <h2>Model not found</h2>
   <p>The model you're looking for doesn't exist or has been removed.</p>
-  <button class="btn btn-primary" (click)="goBack()">← Back to Models</button>
+  <button class="btn btn-primary" (click)="goBack()">
+    <cds-icon shape="arrow" direction="left" style="margin-right:0.3rem;"></cds-icon>
+    Back to Models
+  </button>
 </div>
 
 <div *ngIf="!loading && model" class="detail-container">
 
   <!-- Back button -->
-  <button class="btn btn-link back-btn" (click)="goBack()">← Back to Models</button>
+  <button class="btn btn-link back-btn" (click)="goBack()">
+    <cds-icon shape="arrow" direction="left" style="margin-right:0.25rem; vertical-align:middle;"></cds-icon>
+    Back to Models
+  </button>
 
   <!-- Hero card -->
   <div class="card hero-card">
@@ -20,14 +27,19 @@
       <div class="hero-title-row">
         <h1 class="model-title">{{ model.name || model.id }}</h1>
         <span class="label label-purple" *ngIf="model.architecture?.modality">
+          <cds-icon shape="tag" size="sm" style="margin-right:2px; vertical-align:middle;"></cds-icon>
           {{ model.architecture?.modality }}
         </span>
       </div>
       <p class="model-id-text">{{ model.id }}</p>
-      <p class="created-text" *ngIf="model.created">Released: {{ formatDate(model.created) }}</p>
+      <p class="created-text" *ngIf="model.created">
+        <cds-icon shape="calendar" size="sm" style="margin-right:3px; vertical-align:middle; opacity:0.8;"></cds-icon>
+        Released: {{ formatDate(model.created) }}
+      </p>
     </div>
 
     <div class="card-block description-block" *ngIf="model.description">
+      <cds-icon shape="info-circle" style="float:left; margin:1rem 0.6rem 0 1.25rem; color:#0073b9;" size="md"></cds-icon>
       <p>{{ model.description }}</p>
     </div>
   </div>
@@ -37,12 +49,18 @@
 
     <!-- Context & Architecture -->
     <div class="card info-card">
-      <div class="card-header">Architecture</div>
+      <div class="card-header">
+        <cds-icon shape="cpu" size="md" style="margin-right:0.4rem; vertical-align:middle; color:#0073b9;"></cds-icon>
+        Architecture
+      </div>
       <div class="card-block">
         <table class="table table-compact">
           <tbody>
             <tr>
-              <td class="info-label">Context Length</td>
+              <td class="info-label">
+                <cds-icon shape="layers" size="sm" style="margin-right:3px; vertical-align:middle; color:#555;"></cds-icon>
+                Context Length
+              </td>
               <td>{{ formatContext(model.context_length) }}</td>
             </tr>
             <tr *ngIf="model.architecture?.tokenizer">
@@ -70,7 +88,10 @@
 
     <!-- Pricing -->
     <div class="card info-card">
-      <div class="card-header">Pricing</div>
+      <div class="card-header">
+        <cds-icon shape="dollar" size="md" style="margin-right:0.4rem; vertical-align:middle; color:#1a6e0a;"></cds-icon>
+        Pricing
+      </div>
       <div class="card-block">
         <table class="table table-compact">
           <tbody>
@@ -97,7 +118,10 @@
 
     <!-- Supported Parameters -->
     <div class="card info-card full-width" *ngIf="model.supported_parameters?.length">
-      <div class="card-header">Supported Parameters</div>
+      <div class="card-header">
+        <cds-icon shape="cog" size="md" style="margin-right:0.4rem; vertical-align:middle; color:#555;"></cds-icon>
+        Supported Parameters
+      </div>
       <div class="card-block params-block">
         <span class="label label-light param-chip"
           *ngFor="let p of model.supported_parameters">{{ p }}</span>
@@ -109,6 +133,7 @@
   <!-- Providers / Endpoints -->
   <div class="card endpoints-card" *ngIf="endpoints.length">
     <div class="card-header endpoints-header">
+      <cds-icon shape="rack-server" size="md" style="margin-right:0.4rem; vertical-align:middle; color:#0073b9;"></cds-icon>
       Available Providers
       <span class="badge badge-blue">{{ endpoints.length }}</span>
     </div>
@@ -117,12 +142,27 @@
         <thead>
           <tr>
             <th>Provider</th>
-            <th>Context</th>
+            <th>
+              <cds-icon shape="layers" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
+              Context
+            </th>
             <th>Max Output</th>
-            <th>Input / M</th>
-            <th>Output / M</th>
-            <th>Uptime 30m</th>
-            <th>Uptime 1d</th>
+            <th>
+              <cds-icon shape="dollar" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
+              Input / M
+            </th>
+            <th>
+              <cds-icon shape="dollar" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
+              Output / M
+            </th>
+            <th>
+              <cds-icon shape="clock" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
+              Uptime 30m
+            </th>
+            <th>
+              <cds-icon shape="clock" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
+              Uptime 1d
+            </th>
             <th>Quantization</th>
             <th>Status</th>
           </tr>
@@ -149,8 +189,13 @@
             </td>
             <td>{{ ep.quantization || '-' }}</td>
             <td>
-              <span [class]="ep.status === 0 ? 'status-ok' : 'status-warn'">
-                {{ ep.status === 0 ? '✓ Online' : '⚠ Degraded' }}
+              <span *ngIf="ep.status === 0" class="status-ok">
+                <cds-icon shape="check-circle" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
+                Online
+              </span>
+              <span *ngIf="ep.status !== 0" class="status-warn">
+                <cds-icon shape="warning-standard" size="sm" style="margin-right:3px; vertical-align:middle;"></cds-icon>
+                Degraded
               </span>
             </td>
           </tr>
