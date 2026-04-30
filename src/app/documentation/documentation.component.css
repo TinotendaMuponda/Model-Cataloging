@@ -3,8 +3,6 @@
   display: flex;
   gap: 2rem;
   align-items: flex-start;
-  max-width: 1100px;
-  margin: 0 auto;
 }
 
 /* ── Sidebar ───────────────────────────────────────────── */
@@ -12,7 +10,7 @@
   width: 200px;
   flex-shrink: 0;
   position: sticky;
-  top: 1.25rem;
+  top: calc(48px + 1.25rem);
 }
 
 .doc-sidebar-inner {

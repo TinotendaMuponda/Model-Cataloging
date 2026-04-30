@@ -29,6 +29,13 @@ import { organizationIcon } from '@cds/core/icon/shapes/organization.js';
 import { sortByIcon } from '@cds/core/icon/shapes/sort-by.js';
 import { imageIcon } from '@cds/core/icon/shapes/image.js';
 import { worldIcon } from '@cds/core/icon/shapes/world.js';
+import { ellipsisVerticalIcon } from '@cds/core/icon/shapes/ellipsis-vertical.js';
+import { gridViewIcon } from '@cds/core/icon/shapes/grid-view.js';
+import { bookIcon } from '@cds/core/icon/shapes/book.js';
+import { detailsIcon } from '@cds/core/icon/shapes/details.js';
+import { stepForward2Icon } from '@cds/core/icon/shapes/step-forward-2.js';
+import { starIcon } from '@cds/core/icon/shapes/star.js';
+import { helpIcon } from '@cds/core/icon/shapes/help.js';
 
 ClarityIcons.addIcons(
   searchIcon,
@@ -57,4 +64,11 @@ ClarityIcons.addIcons(
   sortByIcon,
   imageIcon,
   worldIcon,
+  ellipsisVerticalIcon,
+  gridViewIcon,
+  bookIcon,
+  detailsIcon,
+  stepForward2Icon,
+  starIcon,
+  helpIcon,
 );
