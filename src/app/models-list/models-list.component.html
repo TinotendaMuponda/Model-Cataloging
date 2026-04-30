@@ -104,16 +104,21 @@
         </div>
       </div>
 
-      <!-- Capabilities -->
+      <!-- Capabilities — multi-select toggle chips -->
       <div class="filter-row">
         <span class="filter-label">
           <cds-icon shape="bolt" size="xs"></cds-icon>Capability
         </span>
         <div class="chip-group">
-          <button class="filter-chip"
+          <button class="filter-chip cap-filter-chip"
                   *ngFor="let c of capabilityOptions"
-                  [class.active]="selectedCapability === c.value"
-                  (click)="selectedCapability = c.value; applyFilters()">{{ c.label }}</button>
+                  [class.active]="selectedCapabilities.has(c.value)"
+                  [ngClass]="selectedCapabilities.has(c.value) ? 'cap-active-' + c.cls : ''"
+                  (click)="toggleCapability(c.value)">
+            <cds-icon [attr.shape]="c.icon" size="xs" style="margin-right:3px; vertical-align:middle;"></cds-icon>
+            {{ c.label }}
+            <span *ngIf="selectedCapabilities.has(c.value)" class="cap-check">✓</span>
+          </button>
         </div>
       </div>
 

@@ -19,9 +19,9 @@ export class ModelsListComponent implements OnInit {
   selectedModality   = '';
   selectedPricing    = '';   // '' | 'free' | 'paid'
   selectedContext    = '';   // '' | 'xs' | 'sm' | 'md' | 'lg'
-  selectedProvider   = '';
-  selectedCapability = '';   // '' | 'tools' | 'vision' | 'caching' | 'web_search'
-  sortBy             = 'default';
+  selectedProvider    = '';
+  selectedCapabilities: Set<string> = new Set(); // multi-select: 'tools' | 'vision' | 'web_search' | 'discount'
+  sortBy              = 'default';
   filtersOpen        = false;
 
   // ── Derived option lists ─────────────────────────────────
@@ -37,10 +37,10 @@ export class ModelsListComponent implements OnInit {
   ];
 
   readonly capabilityOptions = [
-    { label: 'All',        value: '',           icon: '' },
-    { label: 'Tool Use',   value: 'tools',      icon: 'cog' },
-    { label: 'Vision',     value: 'vision',     icon: 'image' },
-    { label: 'Web Search', value: 'web_search', icon: 'world' },
+    { label: 'Tool Use',   value: 'tools',      icon: 'cog',     cls: 'cap-tools'    },
+    { label: 'Vision',     value: 'vision',     icon: 'image',   cls: 'cap-vision'   },
+    { label: 'Web Search', value: 'web_search', icon: 'world',   cls: 'cap-web'      },
+    { label: 'Discount',   value: 'discount',   icon: 'tag',     cls: 'cap-discount' },
   ];
 
   readonly sortOptions = [
@@ -58,9 +58,19 @@ export class ModelsListComponent implements OnInit {
       this.selectedPricing,
       this.selectedContext,
       this.selectedProvider,
-      this.selectedCapability,
       this.sortBy !== 'default' ? this.sortBy : '',
-    ].filter(Boolean).length;
+    ].filter(Boolean).length + this.selectedCapabilities.size;
+  }
+
+  toggleCapability(value: string): void {
+    if (this.selectedCapabilities.has(value)) {
+      this.selectedCapabilities.delete(value);
+    } else {
+      this.selectedCapabilities.add(value);
+    }
+    // Reassign so Angular detects change
+    this.selectedCapabilities = new Set(this.selectedCapabilities);
+    this.applyFilters();
   }
 
   // ── Capability helpers ───────────────────────────────────
@@ -156,10 +166,11 @@ export class ModelsListComponent implements OnInit {
       // Provider
       if (this.selectedProvider && m.id.split('/')[0] !== this.selectedProvider) return false;
 
-      // Capability
-      if (this.selectedCapability === 'tools'      && !this.hasTools(m)) return false;
-      if (this.selectedCapability === 'vision'     && !this.hasVision(m)) return false;
-      if (this.selectedCapability === 'web_search' && !this.hasWebSearch(m)) return false;
+      // Capability (AND — model must have ALL selected capabilities)
+      if (this.selectedCapabilities.has('tools')      && !this.hasTools(m))      return false;
+      if (this.selectedCapabilities.has('vision')     && !this.hasVision(m))     return false;
+      if (this.selectedCapabilities.has('web_search') && !this.hasWebSearch(m))  return false;
+      if (this.selectedCapabilities.has('discount')   && !this.hasDiscount(m))   return false;
 
       return true;
     });
@@ -190,9 +201,9 @@ export class ModelsListComponent implements OnInit {
     this.selectedModality   = '';
     this.selectedPricing    = '';
     this.selectedContext    = '';
-    this.selectedProvider   = '';
-    this.selectedCapability = '';
-    this.sortBy             = 'default';
+    this.selectedProvider      = '';
+    this.selectedCapabilities  = new Set();
+    this.sortBy                = 'default';
     this.searchQuery        = '';
     this.applyFilters();
   }

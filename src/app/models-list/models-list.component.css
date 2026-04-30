@@ -229,6 +229,51 @@
   box-shadow: 0 1px 3px rgba(0, 115, 185, 0.3);
 }
 
+/* ── Capability chip — colored active states ─────────── */
+.cap-filter-chip { gap: 0.25rem; }
+
+.cap-check {
+  font-size: 0.7rem;
+  margin-left: 2px;
+  opacity: 0.9;
+}
+
+/* Tool Use — blue (override default active) */
+.cap-active-cap-tools {
+  background: #e8f4fb !important;
+  border-color: #0073b9 !important;
+  color: #004d7a !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 4px rgba(0, 115, 185, 0.25) !important;
+}
+
+/* Vision — purple */
+.cap-active-cap-vision {
+  background: #f0ecfb !important;
+  border-color: #7c5cbf !important;
+  color: #4a3080 !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 4px rgba(91, 78, 168, 0.25) !important;
+}
+
+/* Web Search — teal */
+.cap-active-cap-web {
+  background: #e6f7f5 !important;
+  border-color: #009a8c !important;
+  color: #006a60 !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 4px rgba(0, 106, 96, 0.2) !important;
+}
+
+/* Discount — gold */
+.cap-active-cap-discount {
+  background: #fef9e7 !important;
+  border-color: #c49a00 !important;
+  color: #7a5c00 !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 4px rgba(196, 154, 0, 0.25) !important;
+}
+
 /* ── Native selects (provider / sort) ────────────────── */
 .filter-native-select {
   height: 1.6rem;
