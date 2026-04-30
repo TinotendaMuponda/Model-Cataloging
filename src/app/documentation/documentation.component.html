@@ -19,21 +19,10 @@
   <!-- Main content -->
   <article class="doc-content">
 
-    <!-- Hero -->
-    <div class="doc-hero">
-      <div class="doc-hero-icon">
-        <cds-icon shape="network-globe" size="xl"></cds-icon>
-      </div>
-      <div>
-        <h1 class="doc-hero-title">LLM Catalog Documentation</h1>
-        <p class="doc-hero-sub">A straightforward hub for evaluating and choosing large language models, powered by live data from the OpenRouter API.</p>
-        <div class="doc-hero-badges">
-          <span class="doc-badge blue">Angular 15</span>
-          <span class="doc-badge teal">OpenRouter API</span>
-          <span class="doc-badge purple">Clarity Design</span>
-          <span class="doc-badge green">Live Data</span>
-        </div>
-      </div>
+    <!-- Page title -->
+    <div class="doc-page-header">
+      <h1 class="doc-page-title">LLM Catalog Documentation</h1>
+      <p class="doc-page-sub">A straightforward hub for evaluating and choosing large language models, powered by live data from the OpenRouter API.</p>
     </div>
 
     <!-- Overview -->
@@ -43,42 +32,18 @@
       </h2>
       <p>The <strong>LLM Catalog</strong> is a real-time catalogue of every large language model available through <a href="https://openrouter.ai" target="_blank" rel="noopener">OpenRouter</a>. It was built to help ASU decision-makers, researchers, and engineers quickly evaluate, compare, and pick the right AI model for any task, without wading through scattered API documentation.</p>
 
+      <p>Key features at a glance:</p>
+      <ul class="doc-list">
+        <li><strong>Instant Search</strong> — full-text search across model names and IDs in real time.</li>
+        <li><strong>Smart Filters</strong> — filter by modality, pricing, context window, capabilities, and provider.</li>
+        <li><strong>Capability Badges</strong> — at-a-glance chips for Tool Use, Vision, Web Search, and Discount pricing.</li>
+        <li><strong>Provider Insights</strong> — see how many independent providers host each model, with uptime and pricing per endpoint.</li>
+        <li><strong>Latest Additions</strong> — a live sidebar tracks models added in the last 14 days.</li>
+        <li><strong>Provider Logos</strong> — real brand logos across cards, filters, and detail pages.</li>
+      </ul>
       <div class="doc-callout info">
         <cds-icon shape="info-standard" size="sm"></cds-icon>
         <span>All model data is fetched live from the OpenRouter API, so prices, capabilities, and provider availability are always current.</span>
-      </div>
-
-      <div class="doc-feature-grid">
-        <div class="doc-feature-card">
-          <div class="doc-feature-icon blue"><cds-icon shape="search" size="md"></cds-icon></div>
-          <h3>Instant Search</h3>
-          <p>Full-text search across model names and IDs in real time.</p>
-        </div>
-        <div class="doc-feature-card">
-          <div class="doc-feature-icon teal"><cds-icon shape="settings" size="md"></cds-icon></div>
-          <h3>Smart Filters</h3>
-          <p>Filter by modality, pricing, context window, capabilities, and provider.</p>
-        </div>
-        <div class="doc-feature-card">
-          <div class="doc-feature-icon purple"><cds-icon shape="tag" size="md"></cds-icon></div>
-          <h3>Capability Badges</h3>
-          <p>At-a-glance chips for Tool Use, Vision, Web Search, and Discount pricing.</p>
-        </div>
-        <div class="doc-feature-card">
-          <div class="doc-feature-icon green"><cds-icon shape="rack-server" size="md"></cds-icon></div>
-          <h3>Provider Insights</h3>
-          <p>See how many independent providers host each model, with uptime and pricing per endpoint.</p>
-        </div>
-        <div class="doc-feature-card">
-          <div class="doc-feature-icon orange"><cds-icon shape="bolt" size="md"></cds-icon></div>
-          <h3>Latest Additions</h3>
-          <p>A live sidebar tracks models added in the last 14 days so you never miss a new release.</p>
-        </div>
-        <div class="doc-feature-card">
-          <div class="doc-feature-icon red"><cds-icon shape="organization" size="md"></cds-icon></div>
-          <h3>Provider Logos</h3>
-          <p>Real brand logos across cards, filters, and detail pages for instant visual recognition.</p>
-        </div>
       </div>
     </section>
 
@@ -88,43 +53,18 @@
         <cds-icon shape="step-forward-2" size="md"></cds-icon> Getting Started
       </h2>
       <p>No login or API key is needed. Just open the app and the full list of available models loads automatically.</p>
-
       <ol class="doc-steps">
-        <li>
-          <span class="doc-step-num">1</span>
-          <div>
-            <strong>Browse the catalog</strong>
-            <p>The home page shows all models as cards. Each card displays the provider logo, model name, modality badge, capability chips, context window size, and pricing at a glance.</p>
-          </div>
-        </li>
-        <li>
-          <span class="doc-step-num">2</span>
-          <div>
-            <strong>Use the search bar</strong>
-            <p>Type any part of a model name or ID (for example <code>gpt</code>, <code>claude</code>, or <code>llama</code>) to instantly narrow the list.</p>
-          </div>
-        </li>
-        <li>
-          <span class="doc-step-num">3</span>
-          <div>
-            <strong>Apply filters</strong>
-            <p>Use the toolbar below the search bar to narrow results by modality, pricing, context length, capability, or provider.</p>
-          </div>
-        </li>
-        <li>
-          <span class="doc-step-num">4</span>
-          <div>
-            <strong>Open a model's detail page</strong>
-            <p>Click any card to open its full detail page, which shows a pricing breakdown, capabilities, architecture info, and the complete list of hosting providers with uptime stats.</p>
-          </div>
-        </li>
+        <li><strong>Browse the catalog</strong> — the home page shows all models as cards. Each card displays the provider logo, model name, modality badge, capability chips, context window size, and pricing at a glance.</li>
+        <li><strong>Use the search bar</strong> — type any part of a model name or ID (for example <code>gpt</code>, <code>claude</code>, or <code>llama</code>) to instantly narrow the list.</li>
+        <li><strong>Apply filters</strong> — use the toolbar below the search bar to narrow results by modality, pricing, context length, capability, or provider.</li>
+        <li><strong>Open a model's detail page</strong> — click any card to open its full detail page, which shows a pricing breakdown, capabilities, architecture info, and the complete list of hosting providers with uptime stats.</li>
       </ol>
     </section>
 
     <!-- Filters -->
     <section id="filters" class="doc-section">
       <h2 class="doc-section-title">
-        <cds-icon shape="search" size="md"></cds-icon> Filters and Search
+        <cds-icon shape="filter" size="md"></cds-icon> Filters and Search
       </h2>
       <p>The sticky toolbar gives you eight independent ways to narrow down models. All filters stack, so results must satisfy every active filter at the same time.</p>
 
@@ -192,25 +132,12 @@
         <cds-icon shape="tag" size="md"></cds-icon> Capability Badges
       </h2>
       <p>Each model card and detail page shows coloured capability chips. Here is what each one means:</p>
-
-      <div class="doc-capability-list">
-        <div class="doc-cap-row">
-          <span class="cap-pill tools">🔧 Tools</span>
-          <span>The model supports <strong>function calling and tool use</strong>. It can invoke external APIs, run code, or call structured functions you define in your prompt. This is essential for building agentic workflows.</span>
-        </div>
-        <div class="doc-cap-row">
-          <span class="cap-pill vision">👁 Vision</span>
-          <span>The model accepts <strong>image inputs</strong> alongside text. You can send screenshots, diagrams, or photos and ask questions about them.</span>
-        </div>
-        <div class="doc-cap-row">
-          <span class="cap-pill web">🌐 Web</span>
-          <span>The model has <strong>live web search</strong> access. It can pull up-to-date information from the internet at inference time rather than relying only on its training data.</span>
-        </div>
-        <div class="doc-cap-row">
-          <span class="cap-pill discount">💸 Discount</span>
-          <span>This model is offered at a <strong>discounted price</strong> on OpenRouter, typically a promotional or batch rate that is noticeably below the standard tier.</span>
-        </div>
-      </div>
+      <ul class="doc-list">
+        <li><strong>Tool Use</strong> — the model supports function calling. It can invoke external APIs, run code, or call structured functions you define. Essential for agentic workflows.</li>
+        <li><strong>Vision</strong> — the model accepts image inputs alongside text. You can send screenshots, diagrams, or photos and ask questions about them.</li>
+        <li><strong>Web Search</strong> — the model has live web search access, pulling up-to-date information at inference time rather than relying only on its training data.</li>
+        <li><strong>Discount</strong> — this model is offered at a discounted price on OpenRouter, typically a promotional or batch rate below the standard tier.</li>
+      </ul>
     </section>
 
     <!-- Model Detail Page -->
@@ -219,29 +146,13 @@
         <cds-icon shape="info-standard" size="md"></cds-icon> Model Detail Page
       </h2>
       <p>Click any model card to open its dedicated detail page. It is split into five sections:</p>
-
-      <div class="doc-panel-list">
-        <div class="doc-panel-item">
-          <div class="doc-panel-label">Hero header</div>
-          <div>Provider logo, model name, modality, release date, and a row of key stats including context window size, input and output pricing per million tokens, and max output tokens.</div>
-        </div>
-        <div class="doc-panel-item">
-          <div class="doc-panel-label">Capabilities</div>
-          <div>All supported capabilities shown as visual badges. Hover the <span class="inline-tip">ⓘ</span> icons to read plain-English explanations of each one.</div>
-        </div>
-        <div class="doc-panel-item">
-          <div class="doc-panel-label">Architecture</div>
-          <div>Modality, tokenizer type, instruction-following type, and quantisation details where available.</div>
-        </div>
-        <div class="doc-panel-item">
-          <div class="doc-panel-label">Description</div>
-          <div>The model's official description from the provider, shown in full.</div>
-        </div>
-        <div class="doc-panel-item">
-          <div class="doc-panel-label">Provider endpoints</div>
-          <div>Every OpenRouter endpoint that hosts this model, showing the provider logo, context limit, max output, input price, output price, and uptime over the last 30 minutes and 24 hours. Uptime is colour-coded green, yellow, or red.</div>
-        </div>
-      </div>
+      <ul class="doc-list">
+        <li><strong>Hero header</strong> — provider logo, model name, modality, release date, and a row of key stats including context window size, input and output pricing per million tokens, and max output tokens.</li>
+        <li><strong>Capabilities</strong> — all supported capabilities shown as visual badges. Hover the <span class="inline-tip">ⓘ</span> icons for plain-English explanations.</li>
+        <li><strong>Architecture</strong> — modality, tokenizer type, instruction-following type, and quantisation details where available.</li>
+        <li><strong>Description</strong> — the model's official description from the provider, shown in full.</li>
+        <li><strong>Provider endpoints</strong> — every OpenRouter endpoint hosting this model, showing context limit, max output, input and output pricing, and uptime over the last 30 minutes and 24 hours. Uptime is colour-coded green, yellow, or red.</li>
+      </ul>
     </section>
 
     <!-- Providers -->
@@ -265,32 +176,14 @@
         <cds-icon shape="star" size="md"></cds-icon> Use Cases
       </h2>
 
-      <div class="doc-usecase-grid">
-        <div class="doc-usecase-card">
-          <h3>🎓 Research and Academia</h3>
-          <p>Find models with large context windows (128k+) for long-document analysis. Filter by Vision to identify multimodal models for image-based research tasks.</p>
-        </div>
-        <div class="doc-usecase-card">
-          <h3>💼 Enterprise Procurement</h3>
-          <p>Compare pricing across providers for the same model. Use the Multi-provider filter to find models with redundant hosting for high-availability production requirements.</p>
-        </div>
-        <div class="doc-usecase-card">
-          <h3>⚙️ Developer Integration</h3>
-          <p>Filter by Tool Use to find models suited for agentic pipelines and function-calling workflows. Check endpoint uptime before committing to a provider.</p>
-        </div>
-        <div class="doc-usecase-card">
-          <h3>💡 Cost Optimisation</h3>
-          <p>Filter by Free or Discount pricing to find cost-effective alternatives. Sort by price ascending to surface the cheapest options for a given capability set.</p>
-        </div>
-        <div class="doc-usecase-card">
-          <h3>🌐 Real-time Applications</h3>
-          <p>Filter by Web Search to find models that can access live information. Great for news summaries, market research, or any question that needs a current answer.</p>
-        </div>
-        <div class="doc-usecase-card">
-          <h3>🔍 Model Benchmarking</h3>
-          <p>Use the Latest Additions sidebar to track newly released models. Open their detail pages to compare architecture, context limits, and pricing before running evaluations.</p>
-        </div>
-      </div>
+      <ul class="doc-list">
+        <li><strong>Research and Academia</strong> — find models with large context windows (128k+) for long-document analysis. Filter by Vision to identify multimodal models for image-based research tasks.</li>
+        <li><strong>Enterprise Procurement</strong> — compare pricing across providers for the same model. Use the Multi-provider filter to find models with redundant hosting for high-availability production requirements.</li>
+        <li><strong>Developer Integration</strong> — filter by Tool Use to find models suited for agentic pipelines and function-calling workflows. Check endpoint uptime before committing to a provider.</li>
+        <li><strong>Cost Optimisation</strong> — filter by Free or Discount pricing to find cost-effective alternatives. Sort by price ascending to surface the cheapest options for a given capability set.</li>
+        <li><strong>Real-time Applications</strong> — filter by Web Search to find models that can access live information. Great for news summaries, market research, or any question that needs a current answer.</li>
+        <li><strong>Model Benchmarking</strong> — use the Latest Additions sidebar to track newly released models. Open their detail pages to compare architecture, context limits, and pricing before running evaluations.</li>
+      </ul>
     </section>
 
     <!-- FAQ -->
