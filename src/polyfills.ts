@@ -23,6 +23,10 @@ import { clockIcon } from '@cds/core/icon/shapes/clock.js';
 import { rackServerIcon } from '@cds/core/icon/shapes/rack-server.js';
 import { checkIcon } from '@cds/core/icon/shapes/check.js';
 import { angleIcon } from '@cds/core/icon/shapes/angle.js';
+import { filterIcon } from '@cds/core/icon/shapes/filter.js';
+import { timesCircleIcon } from '@cds/core/icon/shapes/times-circle.js';
+import { organizationIcon } from '@cds/core/icon/shapes/organization.js';
+import { sortByIcon } from '@cds/core/icon/shapes/sort-by.js';
 
 ClarityIcons.addIcons(
   searchIcon,
@@ -45,4 +49,8 @@ ClarityIcons.addIcons(
   rackServerIcon,
   checkIcon,
   angleIcon,
+  filterIcon,
+  timesCircleIcon,
+  organizationIcon,
+  sortByIcon,
 );

@@ -21,6 +21,7 @@ export class ModelsListComponent implements OnInit {
   selectedContext  = '';   // '' | 'xs' | 'sm' | 'md' | 'lg'
   selectedProvider = '';
   sortBy           = 'default'; // 'default' | 'name' | 'newest' | 'context_asc' | 'context_desc' | 'price'
+  filtersOpen      = true;
 
   // ── Derived option lists ─────────────────────────────────
   modalityOptions: string[] = [];

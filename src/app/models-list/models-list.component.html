@@ -22,7 +22,7 @@
   <!-- ── Unified sticky toolbar ─────────────────────── -->
   <div class="toolbar">
 
-    <!-- Row 1: search + count + clear -->
+    <!-- Row 1: search + count + toggle + clear -->
     <div class="toolbar-top">
       <div class="search-input-wrapper">
         <cds-icon shape="search" class="search-icon"></cds-icon>
@@ -37,14 +37,28 @@
 
       <span class="label label-info model-count">{{ models.length }} model{{ models.length !== 1 ? 's' : '' }}</span>
 
+      <!-- Filter toggle -->
+      <button class="btn btn-sm filter-toggle-btn"
+              [class.filters-active]="activeFilterCount > 0"
+              (click)="filtersOpen = !filtersOpen"
+              [attr.aria-expanded]="filtersOpen">
+        <cds-icon shape="filter" size="sm"></cds-icon>
+        Filters
+        <span *ngIf="activeFilterCount > 0" class="badge badge-blue filter-toggle-badge">{{ activeFilterCount }}</span>
+        <cds-icon shape="angle" size="sm" class="toggle-chevron" [class.open]="filtersOpen"></cds-icon>
+      </button>
+
       <button *ngIf="activeFilterCount > 0"
               class="btn btn-sm btn-link clear-btn"
               (click)="clearFilters()">
         <cds-icon shape="times-circle" size="sm"></cds-icon>
-        Reset&nbsp;<span class="badge badge-danger">{{ activeFilterCount }}</span>
+        Reset
       </button>
     </div>
 
+    <!-- Collapsible filter rows — grid trick preserves layout flow -->
+    <div class="filters-collapse" [class.open]="filtersOpen">
+      <div class="filters-collapse-inner">
     <!-- Row 2: filter chips + sort -->
     <div class="toolbar-filters">
 
@@ -109,6 +123,8 @@
       </div>
 
     </div><!-- /toolbar-filters -->
+      </div><!-- /filters-collapse-inner -->
+    </div><!-- /filters-collapse -->
   </div><!-- /toolbar -->
 
   <!-- Two-column layout: side pane + main grid -->
