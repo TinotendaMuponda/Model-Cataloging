@@ -8,6 +8,24 @@ html, body {
   color: #1a2332;
 }
 
+/* Stretch the app shell and routed component to fill the viewport */
+app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* router-outlet inserts the component as a sibling — make it fill remaining space */
+app-root > main > app-models-list,
+app-root > main > app-model-detail {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+
 .app-header {
   background: #003d5b;
   color: white;
