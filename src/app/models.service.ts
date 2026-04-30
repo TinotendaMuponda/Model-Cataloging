@@ -58,6 +58,7 @@ export interface ModelInfo {
   pricing?: ModelPricing;
   supported_parameters?: string[];
   links?: ModelLinks;
+  num_endpoints?: number;       // count of available providers from the list API
 }
 
 @Injectable({ providedIn: 'root' })

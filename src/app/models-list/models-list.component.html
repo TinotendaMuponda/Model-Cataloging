@@ -132,6 +132,16 @@
           <option *ngFor="let p of providerOptions" [value]="p">{{ p }}</option>
         </select>
 
+        <!-- Multi-provider toggle -->
+        <button class="filter-chip multi-provider-chip"
+                [class.active]="multiProviderOnly"
+                (click)="multiProviderOnly = !multiProviderOnly; applyFilters()"
+                [tip]="'Show only models available from more than one provider — useful for comparing costs and reliability across providers.'">
+          <cds-icon shape="rack-server" size="sm" style="vertical-align:middle;"></cds-icon>
+          Multi-provider
+          <span *ngIf="multiProviderOnly" class="cap-check">✓</span>
+        </button>
+
         <span class="filter-label filter-label-sort">
           <cds-icon shape="sort-by" size="sm"></cds-icon>Sort
         </span>
@@ -249,6 +259,13 @@
               <span class="meta-item" *ngIf="m.pricing?.image">
                 <cds-icon shape="image" size="sm" style="vertical-align:middle; margin-right:3px; color:#5b4ea8;"></cds-icon>
                 <strong>Img:</strong>&nbsp;{{ formatPrice(m.pricing?.image) }}
+              </span>
+              <span class="meta-item provider-count-chip"
+                    *ngIf="m.num_endpoints"
+                    [class.multi]="m.num_endpoints > 1"
+                    [tip]="m.num_endpoints > 1 ? m.num_endpoints + ' providers available — compare cost and reliability on the detail page.' : '1 provider available.'">
+                <cds-icon shape="rack-server" size="sm" style="vertical-align:middle; margin-right:3px;"></cds-icon>
+                {{ m.num_endpoints }} provider{{ m.num_endpoints !== 1 ? 's' : '' }}
               </span>
             </div>
           </div>

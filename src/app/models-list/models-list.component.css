@@ -714,3 +714,23 @@
   color: #7a5c00;
   border: 1px solid #f5d87a;
 }
+
+/* ── Multi-provider toggle chip ──────────────────────── */
+.multi-provider-chip.active {
+  background: #eaf3eb !important;
+  border-color: #2d8a3e !important;
+  color: #1a5c27 !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 4px rgba(45, 138, 62, 0.2) !important;
+}
+
+/* ── Provider count pill on model cards ──────────────── */
+.provider-count-chip {
+  color: #737373;
+  font-size: 0.72rem;
+}
+
+.provider-count-chip.multi {
+  color: #2d8a3e;
+  font-weight: 600;
+}

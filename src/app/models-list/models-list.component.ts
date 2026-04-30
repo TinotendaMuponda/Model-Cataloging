@@ -19,9 +19,10 @@ export class ModelsListComponent implements OnInit {
   selectedModality   = '';
   selectedPricing    = '';   // '' | 'free' | 'paid'
   selectedContext    = '';   // '' | 'xs' | 'sm' | 'md' | 'lg'
-  selectedProvider    = '';
+  selectedProvider     = '';
   selectedCapabilities: Set<string> = new Set(); // multi-select: 'tools' | 'vision' | 'web_search' | 'discount'
-  sortBy              = 'default';
+  multiProviderOnly    = false;    // show only models with > 1 provider
+  sortBy               = 'default';
   filtersOpen        = false;
 
   // ── Derived option lists ─────────────────────────────────
@@ -59,6 +60,7 @@ export class ModelsListComponent implements OnInit {
       this.selectedContext,
       this.selectedProvider,
       this.sortBy !== 'default' ? this.sortBy : '',
+      this.multiProviderOnly ? 'mp' : '',
     ].filter(Boolean).length + this.selectedCapabilities.size;
   }
 
@@ -166,6 +168,9 @@ export class ModelsListComponent implements OnInit {
       // Provider
       if (this.selectedProvider && m.id.split('/')[0] !== this.selectedProvider) return false;
 
+      // Multi-provider only
+      if (this.multiProviderOnly && (m.num_endpoints ?? 1) <= 1) return false;
+
       // Capability (AND — model must have ALL selected capabilities)
       if (this.selectedCapabilities.has('tools')      && !this.hasTools(m))      return false;
       if (this.selectedCapabilities.has('vision')     && !this.hasVision(m))     return false;
@@ -203,6 +208,7 @@ export class ModelsListComponent implements OnInit {
     this.selectedContext    = '';
     this.selectedProvider      = '';
     this.selectedCapabilities  = new Set();
+    this.multiProviderOnly     = false;
     this.sortBy                = 'default';
     this.searchQuery        = '';
     this.applyFilters();
