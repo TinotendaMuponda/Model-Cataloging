@@ -184,9 +184,9 @@
 
 /* Slightly larger icons inside filter labels */
 .filter-label cds-icon {
-  --cds-icon-size: 16px;
-  width: 16px;
-  height: 16px;
+  --cds-icon-size: 13px;
+  width: 13px;
+  height: 13px;
   flex-shrink: 0;
 }
 
