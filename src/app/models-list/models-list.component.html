@@ -137,7 +137,7 @@
                 [class.active]="multiProviderOnly"
                 [disabled]="loadingProviderCounts"
                 (click)="toggleMultiProvider()"
-                [tip]="'Show only models available from more than one provider — useful for comparing costs and reliability across providers.'">
+                [tip]="'Show only models available from more than one provider. Useful for comparing costs and reliability across providers.'">
           <span *ngIf="loadingProviderCounts" class="spinner spinner-inline"></span>
           <cds-icon *ngIf="!loadingProviderCounts" shape="rack-server" size="sm" style="vertical-align:middle;"></cds-icon>
           {{ loadingProviderCounts ? 'Loading…' : 'Multi-provider' }}
@@ -231,15 +231,15 @@
             <div class="cap-badges">
               <span class="cap-badge cap-tools" *ngIf="hasTools(m)">
                 <cds-icon shape="cog" size="xs"></cds-icon>Tool Use
-                <span class="info-tip" [tip]="'Supports function calling and structured tool use — essential for agentic workflows and API integrations.'">ⓘ</span>
+                <span class="info-tip" [tip]="'Supports function calling and structured tool use. Essential for agentic workflows and API integrations.'">ⓘ</span>
               </span>
               <span class="cap-badge cap-vision" *ngIf="hasVision(m)">
                 <cds-icon shape="image" size="xs"></cds-icon>Vision
-                <span class="info-tip" [tip]="'Accepts image inputs alongside text — required for document analysis, visual QA, or multimodal pipelines.'">ⓘ</span>
+                <span class="info-tip" [tip]="'Accepts image inputs alongside text. Required for document analysis, visual QA, or multimodal pipelines.'">ⓘ</span>
               </span>
               <span class="cap-badge cap-web" *ngIf="hasWebSearch(m)">
                 <cds-icon shape="world" size="xs"></cds-icon>Web Search
-                <span class="info-tip" [tip]="'Can perform live web searches to ground responses in current information — reduces hallucinations on current-events queries.'">ⓘ</span>
+                <span class="info-tip" [tip]="'Can perform live web searches to ground responses in current information. Helps reduce hallucinations on current-events queries.'">ⓘ</span>
               </span>
               <span class="cap-badge cap-discount" *ngIf="hasDiscount(m)">
                 <cds-icon shape="tag" size="xs"></cds-icon>{{ getDiscountPct(m) }}
@@ -269,7 +269,7 @@
               <span class="meta-item provider-count-chip"
                     *ngIf="m.num_endpoints"
                     [class.multi]="m.num_endpoints > 1"
-                    [tip]="m.num_endpoints > 1 ? m.num_endpoints + ' providers available — compare cost and reliability on the detail page.' : '1 provider available.'">
+                    [tip]="m.num_endpoints > 1 ? m.num_endpoints + ' providers available. Compare cost and reliability on the detail page.' : '1 provider available.'">
                 <cds-icon shape="rack-server" size="sm" style="vertical-align:middle; margin-right:3px;"></cds-icon>
                 {{ m.num_endpoints }} provider{{ m.num_endpoints !== 1 ? 's' : '' }}
               </span>
