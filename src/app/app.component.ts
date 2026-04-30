@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
     <nav class="header-nav">
       <div class="nav-dropdown" [class.open]="menuOpen" (click)="$event.stopPropagation()">
         <button class="nav-dd-trigger" (click)="menuOpen = !menuOpen" type="button">
-          <cds-icon shape="apps" size="md"></cds-icon>
+          <cds-icon shape="ellipsis-vertical" size="md"></cds-icon>
         </button>
         <div class="nav-dd-menu" *ngIf="menuOpen">
           <a class="nav-dd-item" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="menuOpen = false">
