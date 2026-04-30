@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
-/** Maps OpenRouter provider slug → primary domain for Clearbit logo lookup */
+/** Maps OpenRouter provider slug → primary domain for logo lookup */
 const PROVIDER_DOMAINS: Record<string, string> = {
   'openai':              'openai.com',
   '~openai':             'openai.com',
@@ -46,7 +46,6 @@ const PROVIDER_DOMAINS: Record<string, string> = {
   'morph':               'morph.so',
 };
 
-/** Deterministic hue from a string — used for the fallback avatar */
 function slugToHue(slug: string): number {
   let hash = 0;
   for (let i = 0; i < slug.length; i++) {
@@ -55,7 +54,6 @@ function slugToHue(slug: string): number {
   return Math.abs(hash) % 360;
 }
 
-/** Return 1–2 uppercase initials from a provider slug */
 function initials(slug: string): string {
   const clean = slug.replace(/^~/, '');
   const parts = clean.split(/[-_]/);
@@ -67,14 +65,24 @@ function initials(slug: string): string {
   selector: 'app-provider-logo',
   template: `
     <span class="prov-logo-wrap" [style.width.px]="px" [style.height.px]="px">
-      <img *ngIf="logoUrl && !imgError"
+      <!-- Primary: logo.dev -->
+      <img *ngIf="logoUrl && fallbackStage === 0"
            [src]="logoUrl"
            [alt]="provider"
            [style.width.px]="px"
            [style.height.px]="px"
            class="prov-logo-img"
-           (error)="imgError = true" />
-      <span *ngIf="!logoUrl || imgError"
+           (error)="tryNextSource()" />
+      <!-- Secondary: Google favicon -->
+      <img *ngIf="faviconUrl && fallbackStage === 1"
+           [src]="faviconUrl"
+           [alt]="provider"
+           [style.width.px]="px"
+           [style.height.px]="px"
+           class="prov-logo-img"
+           (error)="fallbackStage = 2" />
+      <!-- Final: colored-initial avatar -->
+      <span *ngIf="fallbackStage === 2 || (!logoUrl && !faviconUrl)"
             class="prov-logo-fallback"
             [style.width.px]="px"
             [style.height.px]="px"
@@ -114,25 +122,30 @@ function initials(slug: string): string {
 })
 export class ProviderLogoComponent implements OnChanges {
   @Input() provider = '';
-  /** Pixel size — 20 | 24 | 28 | 32 | 36 */
   @Input() size: number = 24;
 
-  logoUrl = '';
-  abbr    = '';
+  logoUrl    = '';
+  faviconUrl = '';
+  abbr       = '';
   fallbackBg = '';
-  imgError   = false;
+  fallbackStage = 0;   // 0 = logo.dev  1 = google favicon  2 = avatar
   px = 24;
 
   ngOnChanges(): void {
-    this.imgError = false;
+    this.fallbackStage = 0;
     this.px = this.size;
-    const slug    = (this.provider || '').toLowerCase();
-    const domain  = PROVIDER_DOMAINS[slug];
-    this.logoUrl  = domain
-      ? `https://logo.clearbit.com/${domain}?size=${this.px * 2}`
+    const slug   = (this.provider || '').toLowerCase();
+    const domain = PROVIDER_DOMAINS[slug];
+    this.logoUrl    = domain ? `https://img.logo.dev/${domain}?size=64&format=png` : '';
+    this.faviconUrl = domain
+      ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64`
       : '';
     this.abbr       = initials(slug || '?');
     const hue       = slugToHue(slug);
     this.fallbackBg = `hsl(${hue}, 55%, 42%)`;
+  }
+
+  tryNextSource(): void {
+    this.fallbackStage = this.faviconUrl ? 1 : 2;
   }
 }
