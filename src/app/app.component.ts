@@ -12,9 +12,7 @@ import { Component } from '@angular/core';
     <nav class="header-nav">
       <div class="nav-dropdown" [class.open]="menuOpen" (click)="$event.stopPropagation()">
         <button class="nav-dd-trigger" (click)="menuOpen = !menuOpen" type="button">
-          <cds-icon shape="apps" size="sm"></cds-icon>
-          Navigate
-          <cds-icon shape="angle" direction="down" size="sm" class="nav-caret"></cds-icon>
+          <cds-icon shape="apps" size="md"></cds-icon>
         </button>
         <div class="nav-dd-menu" *ngIf="menuOpen">
           <a class="nav-dd-item" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="menuOpen = false">
@@ -48,30 +46,22 @@ import { Component } from '@angular/core';
     .nav-dd-trigger {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.22);
-      color: rgba(255,255,255,0.9);
-      font-size: 0.84rem;
-      font-weight: 500;
-      font-family: inherit;
-      padding: 0.3rem 0.75rem;
-      border-radius: 5px;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.85);
+      border-radius: 6px;
       cursor: pointer;
       transition: background 0.15s;
     }
     .nav-dd-trigger:hover,
     .nav-dropdown.open .nav-dd-trigger {
-      background: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.18);
       color: #fff;
     }
-    .nav-caret {
-      opacity: 0.7;
-      transition: transform 0.15s;
-    }
-    .nav-dropdown.open .nav-caret {
-      transform: rotate(180deg);
-    }
+    .nav-caret { display: none; }
     /* Dropdown menu */
     .nav-dropdown { position: relative; }
     .nav-dd-menu {
