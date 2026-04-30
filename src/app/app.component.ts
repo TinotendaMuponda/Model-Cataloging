@@ -5,7 +5,8 @@ import { Component } from '@angular/core';
   template: `
   <header class="app-header">
     <div class="branding">
-      <span class="title" routerLink="/" style="cursor:pointer">Model Capability</span>
+      <cds-icon shape="network-globe" size="lg" style="color:white; margin-right: 0.5rem; vertical-align: middle;"></cds-icon>
+      <span class="title" routerLink="/" style="cursor:pointer">LLM Catalog</span>
       <span class="subtitle">Powered by OpenRouter</span>
     </div>
   </header>
@@ -13,5 +14,5 @@ import { Component } from '@angular/core';
     <router-outlet></router-outlet>
   </main>
   `
-})   
+})
 export class AppComponent { }
