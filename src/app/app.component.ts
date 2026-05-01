@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
+import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   template: `
+  <!-- Route progress bar -->
+  <div class="route-progress-bar" [class.active]="navigating"></div>
+
   <header class="app-header">
     <div class="branding">
       <cds-icon shape="network-globe" size="lg" style="color:white; margin-right: 0.5rem; vertical-align: middle;"></cds-icon>
@@ -30,11 +34,34 @@ import { Component } from '@angular/core';
     </nav>
     <div class="nav-backdrop" *ngIf="menuOpen" (click)="menuOpen = false"></div>
   </header>
-  <main class="content-container">
+  <main class="content-container" [class.route-loading]="navigating">
     <router-outlet></router-outlet>
   </main>
   `,
   styles: [`
+    .route-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, #0073b9, #00a8e8);
+      z-index: 9999;
+      opacity: 0;
+      border-radius: 0 2px 2px 0;
+      transition: none;
+    }
+    .route-progress-bar.active {
+      opacity: 1;
+      width: 85%;
+      transition: width 8s cubic-bezier(0.1, 0.05, 0.0, 1.0);
+    }
+    .content-container {
+      transition: opacity 0.15s ease;
+    }
+    .content-container.route-loading {
+      opacity: 0.5;
+    }
     .header-nav {
       margin-left: auto;
       display: flex;
@@ -42,7 +69,6 @@ import { Component } from '@angular/core';
       position: relative;
       z-index: 400;
     }
-    /* Trigger button */
     .nav-dd-trigger {
       display: inline-flex;
       align-items: center;
@@ -62,7 +88,6 @@ import { Component } from '@angular/core';
       color: #fff;
     }
     .nav-caret { display: none; }
-    /* Dropdown menu */
     .nav-dropdown { position: relative; }
     .nav-dd-menu {
       position: absolute;
@@ -99,7 +124,6 @@ import { Component } from '@angular/core';
       color: #8a99aa;
       margin-top: 1px;
     }
-    /* Full-screen backdrop to close on outside click */
     .nav-backdrop {
       position: fixed;
       inset: 0;
@@ -109,4 +133,19 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   menuOpen = false;
+  navigating = false;
+
+  constructor(private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.navigating = true;
+      } else if (
+        event instanceof NavigationEnd ||
+        event instanceof NavigationCancel ||
+        event instanceof NavigationError
+      ) {
+        setTimeout(() => { this.navigating = false; }, 200);
+      }
+    });
+  }
 }
