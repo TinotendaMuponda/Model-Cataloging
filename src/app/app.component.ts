@@ -24,9 +24,9 @@ import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationErr
             <span>Catalog</span>
             <span class="nav-dd-desc">Browse all available models</span>
           </a>
-          <a class="nav-dd-item" routerLink="/documentation" routerLinkActive="active" (click)="menuOpen = false">
+          <a class="nav-dd-item" routerLink="/docs" routerLinkActive="active" (click)="menuOpen = false">
             <cds-icon shape="book" size="sm"></cds-icon>
-            <span>Documentation</span>
+            <span>Docs</span>
             <span class="nav-dd-desc">How to use this application</span>
           </a>
         </div>

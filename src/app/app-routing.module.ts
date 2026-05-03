@@ -6,7 +6,7 @@ import { DocumentationComponent } from './documentation/documentation.component'
 
 const routes: Routes = [
   { path: '', component: ModelsListComponent },
-  { path: 'documentation', component: DocumentationComponent },
+  { path: 'docs', component: DocumentationComponent },
   { path: ':id', component: ModelDetailComponent },
   { path: '**', redirectTo: '' }
 ];
