@@ -5,10 +5,11 @@ import { ModelDetailComponent } from './model-detail/model-detail.component';
 import { DocumentationComponent } from './documentation/documentation.component';
 
 const routes: Routes = [
-  { path: '', component: ModelsListComponent },
+  { path: '', redirectTo: 'models', pathMatch: 'full' },
+  { path: 'models', component: ModelsListComponent },
   { path: 'docs', component: DocumentationComponent },
-  { path: ':id', component: ModelDetailComponent },
-  { path: '**', redirectTo: '' }
+  { path: 'models/:id', component: ModelDetailComponent },
+  { path: '**', redirectTo: 'models' }
 ];
 
 @NgModule({

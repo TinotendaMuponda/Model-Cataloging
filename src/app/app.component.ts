@@ -10,7 +10,7 @@ import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationErr
   <header class="app-header">
     <div class="branding">
       <cds-icon shape="network-globe" size="lg" style="color:white; margin-right: 0.5rem; vertical-align: middle;"></cds-icon>
-      <span class="title" routerLink="/" style="cursor:pointer">LLM Catalog</span>
+      <span class="title" routerLink="/models" style="cursor:pointer">LLM Catalog</span>
       <span class="subtitle">Powered by OpenRouter</span>
     </div>
     <nav class="header-nav">
@@ -19,7 +19,7 @@ import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationErr
           <cds-icon shape="ellipsis-vertical" size="md"></cds-icon>
         </button>
         <div class="nav-dd-menu" *ngIf="menuOpen">
-          <a class="nav-dd-item" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="menuOpen = false">
+          <a class="nav-dd-item" routerLink="/models" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="menuOpen = false">
             <cds-icon shape="grid-view" size="sm"></cds-icon>
             <span>Catalog</span>
             <span class="nav-dd-desc">Browse all available models</span>

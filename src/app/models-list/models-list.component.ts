@@ -265,7 +265,7 @@ export class ModelsListComponent implements OnInit {
   }
 
   openDetail(model: ModelInfo): void {
-    this.router.navigate(['/', encodeURIComponent(model.id)]);
+    this.router.navigate(['/models', encodeURIComponent(model.id)]);
   }
 
   isRecentlyAdded(createdAt?: number): boolean {

@@ -39,7 +39,7 @@ export class ModelDetailComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['/models']);
   }
 
   formatPrice(price?: string): string {
