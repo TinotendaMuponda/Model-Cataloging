@@ -20,6 +20,7 @@ export class ModelsListComponent implements OnInit {
   selectedPricing    = '';   // '' | 'free' | 'paid'
   selectedContext    = '';   // '' | 'xs' | 'sm' | 'md' | 'lg'
   selectedProvider     = '';
+  selectedUseCase      = '';   // '' | 'student' | 'research' | 'enterprise'
   selectedCapabilities: Set<string> = new Set(); // multi-select: 'tools' | 'vision' | 'web_search' | 'discount'
   multiProviderOnly    = false;    // show only models with > 1 provider
   loadingProviderCounts = false;   // true while fetching endpoint counts
@@ -60,6 +61,7 @@ export class ModelsListComponent implements OnInit {
       this.selectedPricing,
       this.selectedContext,
       this.selectedProvider,
+      this.selectedUseCase,
       this.sortBy !== 'default' ? this.sortBy : '',
       this.multiProviderOnly ? 'mp' : '',
     ].filter(Boolean).length + this.selectedCapabilities.size;
@@ -135,6 +137,30 @@ export class ModelsListComponent implements OnInit {
     return !!(m.pricing?.discount && m.pricing.discount < 1);
   }
 
+  // ── Use-case helpers ─────────────────────────────────────
+  isStudentModel(m: ModelInfo): boolean {
+    // Free models: prompt price == '0' or id has :free suffix
+    const prompt = parseFloat(m.pricing?.prompt || '1');
+    return prompt === 0 || m.id.includes(':free');
+  }
+
+  isResearchModel(m: ModelInfo): boolean {
+    // Large context (>128K) OR supports reasoning parameter
+    const ctx = m.context_length ?? 0;
+    const hasReasoning = (m.supported_parameters ?? []).some(p =>
+      p === 'reasoning' || p === 'include_reasoning');
+    return ctx > 128_000 || hasReasoning;
+  }
+
+  isEnterpriseModel(m: ModelInfo): boolean {
+    // Tool use + structured outputs (response_format) + high capability
+    // Use pricing > $1/M tokens as proxy, OR has both tools + response_format
+    const prompt = parseFloat(m.pricing?.prompt || '0');
+    const hasTools = (m.supported_parameters ?? []).some(p => p === 'tools' || p === 'tool_choice');
+    const hasStructured = (m.supported_parameters ?? []).includes('response_format');
+    return (prompt > 0.000001 && hasTools && hasStructured);
+  }
+
   getDiscountPct(m: ModelInfo): string {
     if (!m.pricing?.discount) return '';
     return Math.round((1 - m.pricing.discount) * 100) + '% off';
@@ -204,6 +230,11 @@ export class ModelsListComponent implements OnInit {
       // Provider
       if (this.selectedProvider && m.id.split('/')[0] !== this.selectedProvider) return false;
 
+      // Use case
+      if (this.selectedUseCase === 'student'    && !this.isStudentModel(m))    return false;
+      if (this.selectedUseCase === 'research'   && !this.isResearchModel(m))   return false;
+      if (this.selectedUseCase === 'enterprise' && !this.isEnterpriseModel(m)) return false;
+
       // Multi-provider only — only exclude when count is known and is ≤ 1
       if (this.multiProviderOnly && m.num_endpoints != null && m.num_endpoints <= 1) return false;
 
@@ -243,6 +274,7 @@ export class ModelsListComponent implements OnInit {
     this.selectedPricing    = '';
     this.selectedContext    = '';
     this.selectedProvider      = '';
+    this.selectedUseCase       = '';
     this.selectedCapabilities  = new Set();
     this.multiProviderOnly     = false;
     this.sortBy                = 'default';

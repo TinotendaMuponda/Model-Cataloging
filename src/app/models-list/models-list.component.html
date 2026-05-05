@@ -91,6 +91,32 @@
         </div>
       </div>
 
+      <!-- Use Case -->
+      <div class="filter-row">
+        <span class="filter-label">
+          <cds-icon shape="user" size="sm"></cds-icon>Use Case
+        </span>
+        <div class="chip-group">
+          <button class="filter-chip" [class.active]="selectedUseCase === ''"
+                  (click)="selectedUseCase = ''; applyFilters()">All</button>
+          <button class="filter-chip" [class.active]="selectedUseCase === 'student'"
+                  (click)="selectedUseCase = 'student'; applyFilters()"
+                  [tip]="'Free models — zero-cost options ideal for learning and experimentation'">
+            🎓 Student
+          </button>
+          <button class="filter-chip" [class.active]="selectedUseCase === 'research'"
+                  (click)="selectedUseCase = 'research'; applyFilters()"
+                  [tip]="'Large context (>128K tokens) or reasoning support — suited for analysis, long documents, and research tasks'">
+            🔬 Research
+          </button>
+          <button class="filter-chip" [class.active]="selectedUseCase === 'enterprise'"
+                  (click)="selectedUseCase = 'enterprise'; applyFilters()"
+                  [tip]="'Paid models with tool use and structured output support — ready for production workflows'">
+            🏢 Enterprise
+          </button>
+        </div>
+      </div>
+
       <!-- Context -->
       <div class="filter-row">
         <span class="filter-label">
