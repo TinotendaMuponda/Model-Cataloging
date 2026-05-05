@@ -729,6 +729,14 @@
   border: 1px solid #f5d87a;
 }
 
+/* Free — green */
+.cap-free {
+  background: #eaf7ec;
+  color: #1a6e0a;
+  border: 1px solid #7dc98a;
+  font-weight: 600;
+}
+
 /* ── Multi-provider toggle chip ──────────────────────── */
 .multi-provider-chip.active {
   background: #eaf3eb !important;
