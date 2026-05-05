@@ -35,7 +35,7 @@
       <p>Key features at a glance:</p>
       <ul class="doc-list">
         <li><strong>Instant Search</strong> — full-text search across model names and IDs in real time.</li>
-        <li><strong>Smart Filters</strong> — filter by modality, pricing, context window, capabilities, and provider.</li>
+        <li><strong>Smart Filters</strong> — filter by modality, pricing, use case, context window, capabilities, and provider.</li>
         <li><strong>Capability Badges</strong> — at-a-glance chips for Tool Use, Vision, Web Search, and Discount pricing.</li>
         <li><strong>Provider Insights</strong> — see how many independent providers host each model, with uptime and pricing per endpoint.</li>
         <li><strong>Latest Additions</strong> — a live sidebar tracks models added in the last 14 days.</li>
@@ -56,7 +56,7 @@
       <ol class="doc-steps">
         <li><strong>Browse the catalog</strong> — the home page shows all models as cards. Each card displays the provider logo, model name, modality badge, capability chips, context window size, and pricing at a glance.</li>
         <li><strong>Use the search bar</strong> — type any part of a model name or ID (for example <code>gpt</code>, <code>claude</code>, or <code>llama</code>) to instantly narrow the list.</li>
-        <li><strong>Apply filters</strong> — use the toolbar below the search bar to narrow results by modality, pricing, context length, capability, or provider.</li>
+        <li><strong>Apply filters</strong> — use the toolbar below the search bar to narrow results by modality, pricing, use case, context length, capability, or provider.</li>
         <li><strong>Open a model's detail page</strong> — click any card to open its full detail page, which shows a pricing breakdown, capabilities, architecture info, and the complete list of hosting providers with uptime stats.</li>
       </ol>
     </section>
@@ -66,7 +66,7 @@
       <h2 class="doc-section-title">
         <cds-icon shape="filter" size="md"></cds-icon> Filters and Search
       </h2>
-      <p>The sticky toolbar gives you eight independent ways to narrow down models. All filters stack, so results must satisfy every active filter at the same time.</p>
+      <p>The sticky toolbar gives you nine independent ways to narrow down models. All filters stack, so results must satisfy every active filter at the same time.</p>
 
       <table class="doc-table">
         <thead>
@@ -91,6 +91,15 @@
             <td><strong>Pricing</strong></td>
             <td>Show only free or paid models</td>
             <td>All / Free / Paid</td>
+          </tr>
+          <tr>
+            <td><strong>Use Case</strong></td>
+            <td>Shortcut filters derived from model data — instantly surface models suited to your role or workflow without manually combining other filters.</td>
+            <td>
+              🎓 <strong>Student</strong> — zero-cost models (free pricing or :free suffix).<br>
+              🔬 <strong>Research</strong> — models with context windows above 128K tokens or reasoning parameter support.<br>
+              🏢 <strong>Enterprise</strong> — paid models that support both tool use and structured output (response_format), ready for production workflows.
+            </td>
           </tr>
           <tr>
             <td><strong>Context window</strong></td>
@@ -177,9 +186,10 @@
       </h2>
 
       <ul class="doc-list">
-        <li><strong>Research and Academia</strong> — find models with large context windows (128k+) for long-document analysis. Filter by Vision to identify multimodal models for image-based research tasks.</li>
-        <li><strong>Enterprise Procurement</strong> — compare pricing across providers for the same model. Use the Multi-provider filter to find models with redundant hosting for high-availability production requirements.</li>
-        <li><strong>Developer Integration</strong> — filter by Tool Use to find models suited for agentic pipelines and function-calling workflows. Check endpoint uptime before committing to a provider.</li>
+        <li><strong>Research and Academia</strong> — use the 🔬 Research use case filter to instantly surface models with large context windows (128K+) or reasoning support. Combine with the Vision capability filter for multimodal research tasks.</li>
+        <li><strong>Enterprise Procurement</strong> — use the 🏢 Enterprise use case filter to find production-ready models with tool use and structured output support. Use the Multi-provider filter alongside it to find models with redundant hosting for high-availability requirements.</li>
+        <li><strong>Student and Learning</strong> — use the 🎓 Student use case filter to quickly find all zero-cost models. No cost means you can experiment freely without worrying about API bills.</li>
+        <li><strong>Developer Integration</strong> — filter by Tool Use capability to find models suited for agentic pipelines and function-calling workflows. Check endpoint uptime before committing to a provider.</li>
         <li><strong>Cost Optimisation</strong> — filter by Free or Discount pricing to find cost-effective alternatives. Sort by price ascending to surface the cheapest options for a given capability set.</li>
         <li><strong>Real-time Applications</strong> — filter by Web Search to find models that can access live information. Great for news summaries, market research, or any question that needs a current answer.</li>
         <li><strong>Model Benchmarking</strong> — use the Latest Additions sidebar to track newly released models. Open their detail pages to compare architecture, context limits, and pricing before running evaluations.</li>
