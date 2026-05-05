@@ -36,6 +36,7 @@ import { detailsIcon } from '@cds/core/icon/shapes/details.js';
 import { stepForward2Icon } from '@cds/core/icon/shapes/step-forward-2.js';
 import { starIcon } from '@cds/core/icon/shapes/star.js';
 import { helpIcon } from '@cds/core/icon/shapes/help.js';
+import { userIcon } from '@cds/core/icon/shapes/user.js';
 
 ClarityIcons.addIcons(
   searchIcon,
@@ -71,4 +72,5 @@ ClarityIcons.addIcons(
   stepForward2Icon,
   starIcon,
   helpIcon,
+  userIcon,
 );

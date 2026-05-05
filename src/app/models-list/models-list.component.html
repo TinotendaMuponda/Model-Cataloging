@@ -101,17 +101,17 @@
                   (click)="selectedUseCase = ''; applyFilters()">All</button>
           <button class="filter-chip" [class.active]="selectedUseCase === 'student'"
                   (click)="selectedUseCase = 'student'; applyFilters()"
-                  [tip]="'Free models - zero-cost options ideal for learning and experimentation'">
+                  [tip]="'Shows only models that are completely free to use. Great if you are learning or just want to experiment without worrying about costs.'">
             Student
           </button>
           <button class="filter-chip" [class.active]="selectedUseCase === 'research'"
                   (click)="selectedUseCase = 'research'; applyFilters()"
-                  [tip]="'Large context (>128K tokens) or reasoning support - suited for analysis, long documents, and research tasks'">
+                  [tip]="'Shows models with a context window above 128K tokens or built-in reasoning support. Good for working through long documents or complex research tasks.'">
             Research
           </button>
           <button class="filter-chip" [class.active]="selectedUseCase === 'enterprise'"
                   (click)="selectedUseCase = 'enterprise'; applyFilters()"
-                  [tip]="'Paid models with tool use and structured output support - ready for production workflows'">
+                  [tip]="'Shows paid models that support tool calling and structured outputs. These are the ones typically used in production applications and automated workflows.'">
             Enterprise
           </button>
         </div>
@@ -257,7 +257,7 @@
             <div class="cap-badges">
               <span class="cap-badge cap-free" *ngIf="isStudentModel(m)">
                 <cds-icon shape="tag" size="xs"></cds-icon>Free
-                <span class="info-tip" [tip]="'Zero-cost model — no API charges. Ideal for students and experimentation.'">ⓘ</span>
+                <span class="info-tip" [tip]="'This model is completely free to use. No charges on input or output tokens.'">ⓘ</span>
               </span>
               <span class="cap-badge cap-tools" *ngIf="hasTools(m)">
                 <cds-icon shape="cog" size="xs"></cds-icon>Tool Use
