@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ModelsService, ModelInfo } from '../models.service';
 
 @Component({
@@ -166,9 +166,21 @@ export class ModelsListComponent implements OnInit {
     return Math.round((1 - m.pricing.discount) * 100) + '% off';
   }
 
-  constructor(private modelsService: ModelsService, private router: Router) {}
+  constructor(private modelsService: ModelsService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    // ── Restore filters from URL query params ────────────────
+    const qp = this.route.snapshot.queryParams;
+    if (qp['q'])          this.searchQuery           = qp['q'];
+    if (qp['modality'])   this.selectedModality      = qp['modality'];
+    if (qp['pricing'])    this.selectedPricing       = qp['pricing'];
+    if (qp['context'])    this.selectedContext       = qp['context'];
+    if (qp['provider'])   this.selectedProvider      = qp['provider'];
+    if (qp['useCase'])    this.selectedUseCase       = qp['useCase'];
+    if (qp['sort'])       this.sortBy                = qp['sort'];
+    if (qp['multi'])      this.multiProviderOnly     = qp['multi'] === 'true';
+    if (qp['caps'])       this.selectedCapabilities  = new Set((qp['caps'] as string).split(',').filter(Boolean));
+
     this.modelsService.listModels().subscribe({
       next: list => {
         this.allModels = list;
@@ -200,6 +212,27 @@ export class ModelsListComponent implements OnInit {
 
   onSearch(query: string): void {
     this.applyFilters();
+  }
+
+  /** Keeps the URL in sync with the current filter state. */
+  private syncQueryParams(): void {
+    const caps = Array.from(this.selectedCapabilities).join(',');
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        q:        this.searchQuery        || null,
+        modality: this.selectedModality   || null,
+        pricing:  this.selectedPricing    || null,
+        context:  this.selectedContext    || null,
+        provider: this.selectedProvider   || null,
+        useCase:  this.selectedUseCase    || null,
+        sort:     this.sortBy !== 'default' ? this.sortBy : null,
+        multi:    this.multiProviderOnly  ? 'true' : null,
+        caps:     caps                    || null,
+      },
+      queryParamsHandling: '' as any,
+      replaceUrl: true,
+    });
   }
 
   applyFilters(): void {
@@ -267,18 +300,19 @@ export class ModelsListComponent implements OnInit {
     }
 
     this.models = result;
+    this.syncQueryParams();
   }
 
   clearFilters(): void {
-    this.selectedModality   = '';
-    this.selectedPricing    = '';
-    this.selectedContext    = '';
+    this.selectedModality      = '';
+    this.selectedPricing       = '';
+    this.selectedContext       = '';
     this.selectedProvider      = '';
     this.selectedUseCase       = '';
     this.selectedCapabilities  = new Set();
     this.multiProviderOnly     = false;
     this.sortBy                = 'default';
-    this.searchQuery        = '';
+    this.searchQuery           = '';
     this.applyFilters();
   }
 
