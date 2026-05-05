@@ -169,7 +169,7 @@ export class ModelsListComponent implements OnInit {
   constructor(private modelsService: ModelsService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // ── Restore filters from URL query params ────────────────
+    // ── Restore filters from URL query params  ────────────────
     const qp = this.route.snapshot.queryParams;
     if (qp['q'])          this.searchQuery           = qp['q'];
     if (qp['modality'])   this.selectedModality      = qp['modality'];
