@@ -1,49 +1,61 @@
-# Model-Cataloging
+# LLM Catalog
 
-Catalog, search, and preview machine-learning models — searchable metadata, simple versioning, and deployment-ready exports.
+A fast, public-facing catalog for comparing large language models across price, capability, context length, provider availability, and endpoint performance.
 
 Live demo: https://model-cataloging.vercel.app
 
-TL;DR
-- Lightweight model registry and explorer for teams and makers. Quickly find models by tags, metrics, or versions and export metadata for deployment.
+> **Key highlight:** this turns scattered model and provider data into a single decision view, so technical and non-technical stakeholders can compare options without digging through API documentation.
 
-Who this is for
-- Data scientists, ML engineers, and product teams who want a simple, front-end-first catalog to make models discoverable and repeatable.
+## What It Does
 
-Highlights
-- Rich metadata: name, description, tags, metrics, versions
-- Fast search and filters for discovery
-- Preview model summaries and example outputs
-- Export metadata and files for deployment
-- Built with TypeScript and modern web stack (Vercel-ready)
+LLM Catalog uses live OpenRouter metadata to help teams quickly answer practical model-selection questions:
 
-Try it
-- Live: https://model-cataloging.vercel.app
-- Quick local run:
-  1. git clone https://github.com/TinotendaMuponda/Model-Cataloging.git
-  2. cd Model-Cataloging
-  3. npm install
-  4. npm run dev
-- Build:
-  - npm run build
-  - npm run start
+- Which models support the capabilities we need?
+- Which providers host the same model?
+- What are the current input and output prices?
+- Which endpoints look fastest or most reliable?
+- Which models are free, discounted, multimodal, or suited for research and production use?
 
-Short checklist for reviewers / PMs
-- Demo link works and shows model listing & preview
-- Search and filtering return expected results
-- Export includes model metadata and selected artifacts
+## Why It Matters
 
-Contributing (quick)
-- Open an issue for feature requests or bugs.
-- Submit PRs against main. Keep changes focused and include screenshots for UI changes.
+Choosing an AI model is no longer just about model quality. Cost, uptime, context window, supported parameters, and provider redundancy all affect whether a model is usable in a real workflow. This app brings those signals together in a clean interface for faster, better-informed decisions.
 
-License
-- MIT — see LICENSE
+## Features
 
-Suggested one-line repo description (pick one)
-- Catalog, search and preview ML models — metadata, versioning, deployment-ready (TypeScript)
-- Lightweight model catalog: discover, version, and export ML models
+- Live model catalog powered by OpenRouter
+- Search, filters, and sorting for fast discovery
+- Capability badges for tool use, vision, web search, and discounts
+- Provider-level endpoint details, including pricing, uptime, latency, throughput, context limits, and max output
+- Multi-provider filtering to compare redundancy and cost options
+- Documentation page for reviewers, researchers, and implementation teams
 
-Contact / Social
-- Homepage / demo: https://model-cataloging.vercel.app
-- Repo: https://github.com/TinotendaMuponda/Model-Cataloging
+## Tech Stack
+
+- Angular 15
+- TypeScript
+- RxJS
+- Clarity components
+- Vercel-ready static deployment
+
+## Run Locally
+
+```bash
+npm install
+npm run start
+```
+
+For a production build:
+
+```bash
+npm run build
+```
+
+## Project Links
+
+- Demo: https://model-cataloging.vercel.app
+- Repository: https://github.com/TinotendaMuponda/Model-Cataloging
+- Data: https://openrouter.ai
+
+## License
+
+MIT
